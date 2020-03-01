@@ -3,12 +3,10 @@ package com.wx.java_code;
 import com.wx.java_code.resource.ListNode;
 import com.wx.java_code.resource.TreeNode;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Stack;
-import java.util.function.Function;
-import java.util.function.IntFunction;
-import java.util.function.ToIntFunction;
+import java.lang.reflect.Array;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.Collectors;
 
 /**
  * 剑指Offer习题解答
@@ -243,7 +241,23 @@ public class CodingInterviews {
      * @return 单次次数出现的数字集合
      */
     public static int singleNumber(int[] nums) {
-
+        if (nums == null || nums.length < 1 || nums.length > 10000){
+            return 0;
+        }
+        HashMap<Integer,Integer> map = new HashMap<>((nums.length + 2) / 3);
+        for (int i : nums) {
+            if (map.containsKey(i)) {
+                map.put(i, 2);
+            } else {
+                map.put(i, 1);
+            }
+        }
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            if (entry.getValue() == 1) {
+                return entry.getValue();
+            }
+        }
+        return 0;
     }
 
     /**
@@ -297,8 +311,10 @@ public class CodingInterviews {
 //        System.out.println(hammingWeight(000000000000000000000001001011));
         //求1+2+..+n
 //        System.out.println(sumNums(9));
-        //数组中数字出现的次数
-        System.out.println(Arrays.toString(singleNumbers(new int[]{4, 1, 4, 6})));
+        //数组中数字出现的次数I
+//        System.out.println(Arrays.toString(singleNumbers(new int[]{4, 1, 4, 6})));
+        //数组中数字出现的次数II
+        System.out.println(singleNumber(new int[]{9,1,7,9,7,9,7}));
     }
 
 
