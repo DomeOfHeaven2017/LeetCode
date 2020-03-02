@@ -13,6 +13,40 @@ import java.util.stream.Collectors;
  */
 public class CodingInterviews {
 
+
+    /**
+     * 面试题03
+     * 数组中重复的数字
+     * @param nums 所给数组
+     * @return 重复数字
+     */
+    public int findRepeatNumber(int[] nums) {
+        if (nums == null || nums.length < 2 || nums.length > 100000) {
+            return 0;
+        }
+//        int[] temp = new int[nums.length];
+//        for (int i = 0 ; i < nums.length ; i++) {
+//            temp[nums[i]] ++;
+//            if (temp[nums[i]] > 1) {
+//                return nums[i];
+//            }
+//        }
+//        return 0;
+        int temp = 0;
+        for (int i = 0 ; i < nums.length ; i ++) {
+            while (nums[i] != i) {
+                if (nums[i] == nums[nums[i]]) {
+                    return nums[i];
+                } else {
+                    temp = nums[i];
+                    nums[i] = nums[temp];
+                    nums[temp] = temp;
+                }
+            }
+        }
+        return 0;
+    }
+
     /**
      * 面试题05
      * 替换空格
