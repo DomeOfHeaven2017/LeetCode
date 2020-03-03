@@ -48,6 +48,40 @@ public class CodingInterviews {
     }
 
     /**
+     * 面试题04 二维数组中的查找
+     * @param matrix 二维数组
+     * @param target 目标数字
+     * @return 目标数字是否存在
+     */
+    public static boolean findNumberIn2DArray(int[][] matrix, int target) {
+        if (matrix == null) return false;
+        int m = matrix.length;
+        if (m == 0) return false;
+        int n = matrix[0].length;
+//        int i = m - 1, j = 0;
+//        while (i >= 0 && j < n) {
+//            if (matrix[i][j] > target) {
+//                i--;
+//            } else if (matrix[i][j] < target) {
+//                j++;
+//            } else {
+//                return true;
+//            }
+//        }
+        int i = 0, j = n - 1;
+        while (i < m && j >= 0) {
+            if (matrix[i][j] > target) {
+                j--;
+            } else if (matrix[i][j] < target) {
+                i++;
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * 面试题05
      * 替换空格
      * @param s 原始字符串
