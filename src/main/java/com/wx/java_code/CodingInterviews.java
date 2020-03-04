@@ -123,6 +123,39 @@ public class CodingInterviews {
     }
 
     /**
+     * 面试题10-I
+     * 斐波那契数列
+     * @param n 所求第n项
+     * @return 斐波那契数列第n项
+     */
+    public static final long THRES_HOLD = 1000000007;
+    public static int fib(int n) {
+        //递归法
+//        if (n < 1) {
+//            return n;
+//        }
+//        return fib(n - 1) + fib(n - 2);
+        //循环法
+        if (n <= 1) {
+            return n;
+        }
+        long num1 = 0, num2 = 1;
+        long temp = 0;
+        int i = 2;
+        while (i <= n) {
+            temp = (num1 + num2)%THRES_HOLD;
+            num1 = num2;
+            num2 = temp;
+            i ++;
+        }
+        return (int) temp;
+
+        //公式法
+//        double temp = Math.sqrt(5);
+//        return (int) ((Math.pow((1 + temp) / 2, n) - Math.pow((1 - temp) / 2, n)) / temp % THRES_HOLD) ;
+    }
+
+    /**
      * 面试题15
      * 二进制中1的个数
      * @param n 所给二进制数
