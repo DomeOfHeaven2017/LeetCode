@@ -155,6 +155,29 @@ public class CodingInterviews {
 //        return (int) ((Math.pow((1 + temp) / 2, n) - Math.pow((1 - temp) / 2, n)) / temp % THRES_HOLD) ;
     }
 
+
+    /**
+     * 面试题10-II
+     * 青蛙跳台阶问题
+     * @param n n级台阶
+     * @return n级台阶的跳法
+     */
+    public static int numWays(int n) {
+        if (n <= 1) {
+            return 1;
+        }
+        long num1 = 0, num2 = 1;
+        long temp = 0;
+        int i = 0;
+        while (i < n) {
+            temp = (num1 + num2)%1000000007;
+            num1 = num2;
+            num2 = temp;
+            i ++;
+        }
+        return (int) temp;
+    }
+
     /**
      * 面试题15
      * 二进制中1的个数
@@ -415,7 +438,9 @@ public class CodingInterviews {
         //数组中数字出现的次数I
 //        System.out.println(Arrays.toString(singleNumbers(new int[]{4, 1, 4, 6})));
         //数组中数字出现的次数II
-        System.out.println(singleNumber(new int[]{9,1,7,9,7,9,7}));
+//        System.out.println(singleNumber(new int[]{9,1,7,9,7,9,7}));
+        //青蛙跳台阶的问题
+        System.out.println(numWays(7));
     }
 
 
