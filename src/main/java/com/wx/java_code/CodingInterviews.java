@@ -9,7 +9,9 @@ import java.util.function.*;
 import java.util.stream.Collectors;
 
 /**
- * 剑指Offer习题解答
+ * @Desc 剑指Offer习题解答
+ * @Author wx
+ * @Date 2020-2-22
  */
 public class CodingInterviews {
 
@@ -191,6 +193,29 @@ public class CodingInterviews {
             count ++;
         }
         return count;
+    }
+
+
+    /**
+     * 面试题16
+     * 数值的整数次方
+     * @param x
+     * @param n
+     * @return
+     */
+    public double myPow(double x, int n) {
+        if (n == 0) return 1;
+        double temp;
+        if (n > 0) {
+            temp = x;
+        } else {
+            temp = 1 / x;
+        }
+        int i = 1,multi = 1;
+        while (i <= Math.abs(n)) {
+            multi *= temp;
+        }
+        return multi;
     }
 
     /**
