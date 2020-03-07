@@ -234,6 +234,35 @@ public class CodingInterviews {
         return result;
     }
 
+
+    /**
+     * 面试题18
+     * 删除链表的节点
+     * @param head 所给链表头结点
+     * @param val 要删除的节点值
+     * @return 删除后的链表头结点
+     */
+    public ListNode deleteNode(ListNode head, int val) {
+        if (head == null) {
+            return null;
+        }
+        if (head.val == val) {
+            return head.next;
+        }
+        ListNode node = head, temp = head;
+        head = head.next;
+        while (head != null) {
+            if (head.val == val) {
+                temp.next = head.next;
+                head.next = null;
+                break;
+            }
+            temp = head;
+            head = head.next;
+        }
+        return node;
+    }
+
     /**
      * 面试题22
      * 链表中倒数第k个节点
