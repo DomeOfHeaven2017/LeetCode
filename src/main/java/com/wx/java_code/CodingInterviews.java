@@ -199,21 +199,26 @@ public class CodingInterviews {
     /**
      * 面试题16
      * 数值的整数次方
-     * @param x
-     * @param n
-     * @return
+     * @param x 底数
+     * @param n 幂数
+     * @return 次方结果
      */
     public double myPow(double x, int n) {
         if (n == 0) return 1;
-        double temp;
-        if (n > 0) {
-            temp = x;
-        } else {
+        if (x == 0) return 0;
+        double temp = x;
+        long i = n;
+        if (i < 0) {
             temp = 1 / x;
+            i = -i;
         }
-        int i = 1,multi = 1;
-        while (i <= Math.abs(n)) {
-            multi *= temp;
+        double multi = 1;
+        while (i > 0) {
+            if ((i & 1) == 1) {
+                multi *= temp;
+            }
+            temp *= temp;
+            i = i >> 1;
         }
         return multi;
     }
