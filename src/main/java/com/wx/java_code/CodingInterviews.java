@@ -181,6 +181,37 @@ public class CodingInterviews {
     }
 
     /**
+     * 面试题14-I
+     * 剪绳子
+     * @param n 绳子长度
+     * @return 最大乘积
+     */
+    public int cuttingRope(int n) {
+        if (n <= 2) {
+            return 1;
+        }
+        if (n == 3) {
+            return 2;
+        }
+        int[] rope = new int[n + 1];
+        int max = 0;
+        rope[0] = 0;
+        rope[1] = 1;
+        rope[2] = 2;
+        rope[3] = 3;
+        for (int i = 4 ; i <= n ; i ++) {
+            for (int j = 1 ; j <= i / 2 ; j ++){
+                int temp = rope[j]*rope[i-j];
+                if (max < temp) {
+                    max = temp;
+                }
+            }
+            rope[i] = max;
+        }
+        return rope[n];
+    }
+
+    /**
      * 面试题15
      * 二进制中1的个数
      * @param n 所给二进制数
