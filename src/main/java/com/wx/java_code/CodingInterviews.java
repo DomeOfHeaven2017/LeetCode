@@ -193,33 +193,33 @@ public class CodingInterviews {
         if (n == 3) {
             return 2;
         }
-//        int time3 = n / 3;
-//        if (n - 3 * time3 == 1) {
-//            time3 -= 1;
-//        }
-//        int time = n - 3 * time3;
-//        if (time == 0) {
-//            return (int) Math.pow(3, time3);
-//        } else {
-//            return (int) (Math.pow(3, time3) * time);
-//        }
-
-        int[] rope = new int[n + 1];
-        int max = 0;
-        rope[0] = 0;
-        rope[1] = 1;
-        rope[2] = 2;
-        rope[3] = 3;
-        for (int i = 4 ; i <= n ; i ++) {
-            for (int j = 1 ; j <= i / 2 ; j ++){
-                int temp = rope[j]*rope[i-j];
-                if (max < temp) {
-                    max = temp;
-                }
-            }
-            rope[i] = max;
+        int time3 = n / 3;
+        if (n - 3 * time3 == 1) {
+            time3 -= 1;
         }
-        return rope[n];
+        int time = n - 3 * time3;
+        if (time == 0) {
+            return (int) Math.pow(3, time3);
+        } else {
+            return (int) (Math.pow(3, time3) * time);
+        }
+
+//        int[] rope = new int[n + 1];
+//        int max = 0;
+//        rope[0] = 0;
+//        rope[1] = 1;
+//        rope[2] = 2;
+//        rope[3] = 3;
+//        for (int i = 4 ; i <= n ; i ++) {
+//            for (int j = 1 ; j <= i / 2 ; j ++){
+//                int temp = rope[j]*rope[i-j];
+//                if (max < temp) {
+//                    max = temp;
+//                }
+//            }
+//            rope[i] = max;
+//        }
+//        return rope[n];
     }
 
     /**
