@@ -193,6 +193,17 @@ public class CodingInterviews {
         if (n == 3) {
             return 2;
         }
+//        int time3 = n / 3;
+//        if (n - 3 * time3 == 1) {
+//            time3 -= 1;
+//        }
+//        int time = n - 3 * time3;
+//        if (time == 0) {
+//            return (int) Math.pow(3, time3);
+//        } else {
+//            return (int) (Math.pow(3, time3) * time);
+//        }
+
         int[] rope = new int[n + 1];
         int max = 0;
         rope[0] = 0;
