@@ -426,6 +426,52 @@ public class CodingInterviews {
     }
 
     /**
+     * 面试题29
+     * 顺时针打印矩阵
+     * @param matrix 二维数组
+     * @return
+     */
+    public int[] spiralOrder(int[][] matrix) {
+        if (matrix == null || matrix.length == 0) {
+            return new int[]{};
+        }
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int[] result = new int[m * n];
+        int top = 0;
+        int bottom = m - 1;
+        int left = 0;
+        int right = n - 1;
+        int i, count = 0;
+        while (top <= bottom && left <= right) {
+            for (i = left ; i <= right ; i ++) {
+                result[count++] = matrix[top][i];
+            }
+            top ++;
+            if (top > bottom) break;
+
+            for (i = top ; i <= bottom ; i ++) {
+                result[count++] = matrix[i][right];
+            }
+            right --;
+            if (left > right) break;
+
+            for (i = right ; i >= left ; i --) {
+                result[count++] = matrix[bottom][i];
+            }
+            bottom --;
+            if (top > bottom) break;
+
+            for (i = bottom ; i >= top ; i --) {
+                result[count++] = matrix[i][left];
+            }
+            left ++;
+            if (left > right) break;
+        }
+        return result;
+    }
+
+    /**
      * 面试题55 - I
      * 二叉树的深度
      * @param root 二叉树根节点
