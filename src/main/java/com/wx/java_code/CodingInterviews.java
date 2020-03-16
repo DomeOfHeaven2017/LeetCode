@@ -472,6 +472,48 @@ public class CodingInterviews {
     }
 
     /**
+     * 面试题40
+     * 最小的k个数
+     * @param arr 原数组
+     * @param k
+     * @return 最小的k个数组成的集合
+     */
+    public int[] getLeastNumbers(int[] arr, int k) {
+        if (arr == null || arr.length == 0) {
+            return arr;
+        }
+        Arrays.sort(arr);
+        return Arrays.copyOf(arr, k);
+    }
+
+
+    /**
+     * 面试题50
+     * 第一个只出现一次的字符
+     * @param s 原字符串
+     * @return 只出现一次的字符
+     */
+    public char firstUniqChar(String s) {
+//        if (s == null || s.length() == 0) return ' ';
+//        char result = ' ';
+//        Map<Character, Integer> map = new HashMap<>(s.length());
+//        for (Character c : s.toCharArray()) {
+//            if (map.containsKey(c)) {
+//                map.put(c, 1);
+//            } else {
+//                map.put(c, 0);
+//            }
+//        }
+//        for (Map.Entry<Character, Integer> entry : map.entrySet()) {
+//            if (entry.getValue() == 0) {
+//                result = entry.getKey();
+//                break;
+//            }
+//        }
+//        return result;
+    }
+
+    /**
      * 面试题55 - I
      * 二叉树的深度
      * @param root 二叉树根节点
