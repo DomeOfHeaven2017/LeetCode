@@ -523,6 +523,21 @@ public class CodingInterviews {
         return root == null ? 0 : Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
     }
 
+
+    /**
+     * 面试题55-II
+     * 平衡二叉树
+     * @param root 根节点
+     * @return 是否为平衡二叉树
+     */
+    public boolean isBalanced(TreeNode root) {
+        if (root == null) {
+            return true;
+        } else {
+            return isBalanced(root.left) && isBalanced(root.right) && (Math.abs(maxDepth(root.left) - maxDepth(root.right)) <= 1);
+        }
+    }
+
     /**
      * 面试题56-I
      * 数组中数字出现的次数 I
