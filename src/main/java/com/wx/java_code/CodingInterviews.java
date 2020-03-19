@@ -181,6 +181,27 @@ public class CodingInterviews {
     }
 
     /**
+     * 面试题11
+     * 旋转数组的最小数字
+     * @param numbers 所给数组
+     * @return 最小数字
+     */
+    public int minArray(int[] numbers) {
+        int l = 0, h = numbers.length - 1;
+        while (l < h) {
+            int mid = (( h - l ) >> 2 ) + l;
+            if (numbers[h] > numbers[mid]) {
+                h = mid;
+            } else if (numbers[h] < numbers[mid]) {
+                l = mid + 1;
+            } else {
+                h -- ;
+            }
+        }
+        return numbers[l];
+    }
+
+    /**
      * 面试题14-I
      * 剪绳子
      * @param n 绳子长度
