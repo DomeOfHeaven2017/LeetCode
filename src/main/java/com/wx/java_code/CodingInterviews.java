@@ -609,6 +609,42 @@ public class CodingInterviews {
         return 0;
     }
 
+
+    /**
+     * 面试题57
+     * 和为s的两个数字
+     * @param nums 原递增数组
+     * @param target 和
+     * @return 和为target的两个数字
+     */
+    public static int[] twoSum(int[] nums, int target) {
+        if (nums == null || nums.length <= 0) return nums;
+        for (int i = 0 ; i < nums.length ; i ++) {
+            int item = target - nums[i];
+            if (binarySearch(nums, item)) {
+                return new int[]{nums[i], item};
+            }
+        }
+        return new int[]{};
+    }
+
+    private static boolean binarySearch(int[] nums, int item) {
+        int l = 0, h = nums.length - 1;
+        while (l < h) {
+            int mid = ((h - l) >> 1) + l;
+            if (item > nums[mid]) {
+                l = mid + 1;
+            } else if (item < nums[mid]) {
+                h = mid;
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
     /**
      * 面试题58 - II
      * 左旋转字符串
