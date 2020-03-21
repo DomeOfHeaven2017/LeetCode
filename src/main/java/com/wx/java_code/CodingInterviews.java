@@ -534,6 +534,39 @@ public class CodingInterviews {
 //        return result;
     }
 
+
+    /**
+     * 面试题53-I
+     * 在排序数组中查找数字I
+     * @param nums 原数组
+     * @param target 目标数字
+     * @return 目标数字在数组中出现的次数
+     */
+    public int search(int[] nums, int target) {
+        if (nums == null || nums.length <= 0) return 0;
+        int l = 0, h = nums.length - 1;
+
+        while (l <= h) {
+            int mid = l + (h - l) / 2;
+            if (nums[mid] <= target) {
+                l = mid + 1;
+            } else {
+                h = mid - 1;
+            }
+        }
+        int right = l;
+        l = 0; h = nums.length - 1;
+        while (l <= h) {
+            int mid = l + (h - l) / 2;
+            if (nums[mid] >= target) {
+                h = mid - 1;
+            } else {
+                l = mid + 1;
+            }
+        }
+        return right - h - 1;
+    }
+
     /**
      * 面试题55 - I
      * 二叉树的深度
@@ -628,6 +661,12 @@ public class CodingInterviews {
         return new int[]{};
     }
 
+    /**
+     * 二分查找
+     * @param nums 原数组
+     * @param item 目标数字
+     * @return 是否在数组中
+     */
     private static boolean binarySearch(int[] nums, int item) {
         int l = 0, h = nums.length - 1;
         while (l < h) {
