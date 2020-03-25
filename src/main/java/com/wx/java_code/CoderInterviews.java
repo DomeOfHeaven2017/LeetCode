@@ -2,6 +2,7 @@ package com.wx.java_code;
 
 import com.wx.java_code.resource.ListNode;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,8 +59,24 @@ public class CoderInterviews {
         return p.val;
     }
 
+    /**
+     * 面试题16.01
+     * 交换数字
+     * @param numbers 源数组
+     * @return 交换后的数组
+     */
+    public static int[] swapNumbers(int[] numbers) {
+        int[] result = new int[2];
+        int xor = numbers[0] ^ numbers[1];
+        result[0] = xor ^ numbers[0];
+        result[1] = xor ^ numbers[1];
+        return result;
+    }
+
     public static void main(String[] args) {
         //判定字符是否唯一
-        System.out.println(isUnique("leetcode"));
+//        System.out.println(isUnique("leetcode"));
+        //16.01
+        System.out.println(Arrays.toString(swapNumbers(new int[]{3, 4})));
     }
 }

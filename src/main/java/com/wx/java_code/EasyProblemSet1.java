@@ -309,6 +309,24 @@ public class EasyProblemSet1 {
         return count;
     }
 
+    /**
+     * 1108
+     * IP地址无效化
+     * @param address IP地址
+     * @return 无效化地址
+     */
+    public static String defangIPaddr(String address) {
+        StringBuilder sb = new StringBuilder(address.length() * 3);
+        for (char c : address.toCharArray()) {
+            if (c == '.'){
+                sb.append("[.]");
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+
 
     public static void main(String[] args){
 
@@ -328,5 +346,7 @@ public class EasyProblemSet1 {
 //        System.out.println(decompressRLElist(new int[]{1,2,3,4}));
         //将数字变成 0 的操作次数
 //        System.out.println(numberOfSteps(0));
+        //IP地址无效化
+        System.out.println(defangIPaddr("1.1.1.1"));
     }
 }
