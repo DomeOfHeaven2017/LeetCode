@@ -1,6 +1,8 @@
 package com.wx.java_code;
 
 
+import com.wx.java_code.resource.ListNode;
+
 import java.util.*;
 
 /**
@@ -162,14 +164,6 @@ public class EasyProblemSet1 {
         return signs.isEmpty();
     }
 
-    static class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-        }
-    }
 
     //合并两个有序链表
     public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
@@ -325,6 +319,21 @@ public class EasyProblemSet1 {
             }
         }
         return sb.toString();
+    }
+
+    /**
+     * 面试题1290
+     * 二进制链表转整数
+     * @param head 头结点
+     * @return 整数
+     */
+    public int getDecimalValue(ListNode head) {
+        StringBuilder sb = new StringBuilder(32);
+        while (head != null) {
+            sb.append(head.val);
+            head = head.next;
+        }
+        return Integer.parseInt(sb.toString(),2);
     }
 
 
