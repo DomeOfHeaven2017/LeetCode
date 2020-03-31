@@ -304,6 +304,16 @@ public class EasyProblemSet1 {
     }
 
     /**
+     * 面试题237
+     * 删除链表中的节点
+     * @param node 待删除节点
+     */
+    public void deleteNode(ListNode node) {
+        node.val = node.next.val;
+        node.next = node.next.next;
+    }
+
+    /**
      * 1108
      * IP地址无效化
      * @param address IP地址
