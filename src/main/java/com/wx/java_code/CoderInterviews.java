@@ -60,6 +60,16 @@ public class CoderInterviews {
     }
 
     /**
+     * 面试题02.03
+     * 删除链表中的节点
+     * @param node 待删除节点
+     */
+    public void deleteNode(ListNode node) {
+        node.val = node.next.val;
+        node.next = node.next.next;
+    }
+
+    /**
      * 面试题16.01
      * 交换数字
      * @param numbers 源数组
