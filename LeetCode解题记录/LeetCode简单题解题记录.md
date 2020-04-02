@@ -710,6 +710,72 @@ public static int findNumbers(int[] nums) {
   }
   ```
 
+#### (1221)分割平衡字符串
+
+##### 问题描述
+
+```
+在一个「平衡字符串」中，'L' 和 'R' 字符的数量是相同的。
+给出一个平衡字符串 s，请你将它分割成尽可能多的平衡字符串。
+返回可以通过分割得到的平衡字符串的最大数量。
+
+示例 1：
+输入：s = "RLRRLLRLRL"
+输出：4
+解释：s 可以分割为 "RL", "RRLL", "RL", "RL", 每个子字符串中都包含相同数量的 'L' 和 'R'。
+示例 2：
+输入：s = "RLLLLRRRLR"
+输出：3
+解释：s 可以分割为 "RL", "LLLRRR", "LR", 每个子字符串中都包含相同数量的 'L' 和 'R'。
+示例 3：
+输入：s = "LLLLRRRR"
+输出：1
+解释：s 只能保持原样 "LLLLRRRR".
+
+提示：
+1 <= s.length <= 1000
+s[i] = 'L' 或 'R'
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/split-a-string-in-balanced-strings
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+```
+
+##### 解题思路
+
+> 声明一个变量`balance`，表示平衡值
+>
+> - 当遇到一个`L`字符时，平衡值加一
+> - 遇到一个`R`字符时，平衡值减一
+>
+> 则当`balance`的值为0时即为平衡状态，此时计数加一。
+
+##### 代码
+
+```java
+/**
+     * 面试题1221
+     * 分割平衡字符串
+     * @param s 源字符串
+     * @return 最大数量
+     */
+public int balancedStringSplit(String s) {
+    int balance = 0,count = 0;
+    for (char c : s.toCharArray()) {
+        if (c == 'L') {
+            balance ++;
+        } else if (c == 'R'){
+            balance --;
+        }
+        if (balance == 0) {
+            count ++;
+        }
+    }
+    return count;
+}
+```
+
+
+
 #### (1281)整数的各位积和之差
 
 ##### 题目描述:

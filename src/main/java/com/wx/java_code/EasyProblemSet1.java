@@ -323,6 +323,27 @@ public class EasyProblemSet1 {
     }
 
     /**
+     * 面试题1221
+     * 分割平衡字符串
+     * @param s 源字符串
+     * @return 最大数量
+     */
+    public int balancedStringSplit(String s) {
+        int balance = 0,count = 0;
+        for (char c : s.toCharArray()) {
+            if (c == 'L') {
+                balance ++;
+            } else if (c == 'R'){
+                balance --;
+            }
+            if (balance == 0) {
+                count ++;
+            }
+        }
+        return count;
+    }
+
+    /**
      * 面试题1290
      * 二进制链表转整数
      * @param head 头结点
