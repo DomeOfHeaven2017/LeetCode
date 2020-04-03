@@ -303,6 +303,20 @@ public class EasyProblemSet1 {
         return count;
     }
 
+    /**
+     * 面试题198
+     * 打家劫舍
+     * @param nums
+     * @return
+     */
+    public static int rob(int[] nums) {
+        int[] dp = new int[nums.length + 2];
+        for (int i = 0; i < nums.length; i++) {
+            dp[i + 2] = Math.max(dp[i] + nums[i], dp[i + 1]);
+        }
+        return dp[nums.length + 1];
+    }
+
 
     /**
      * 1108
