@@ -317,6 +317,19 @@ public class EasyProblemSet1 {
         return dp[nums.length + 1];
     }
 
+    /**
+     * 面试题 213
+     * 打家劫舍II
+     * @param nums
+     * @return
+     */
+    public static int rob2(int[] nums) {
+        if (nums.length == 0) return 0;
+        if (nums.length == 1) return nums[0];
+        int length = nums.length;
+        return Math.max(rob(Arrays.copyOfRange(nums, 0, length - 1)), rob(Arrays.copyOfRange(nums, 1, length)));
+    }
+
 
     /**
      * 1108
