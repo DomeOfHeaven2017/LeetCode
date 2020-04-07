@@ -330,6 +330,23 @@ public class EasyProblemSet1 {
         return Math.max(rob(Arrays.copyOfRange(nums, 0, length - 1)), rob(Arrays.copyOfRange(nums, 1, length)));
     }
 
+    /**
+     * 面试题344
+     * 反转字符串
+     * @param s 原字符串数组
+     */
+    public void reverseString(char[] s) {
+        int start = 0, end = s.length - 1;
+        char temp = 0;
+        while (start < end) {
+            temp = s[start];
+            s[start] = s[end];
+            s[end] = temp;
+            start ++;
+            end -- ;
+        }
+    }
+
 
     /**
      * 1108
