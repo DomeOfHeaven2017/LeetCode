@@ -2,6 +2,7 @@ package com.wx.java_code;
 
 
 import com.wx.java_code.resource.ListNode;
+import com.wx.java_code.resource.TreeNode;
 
 import java.util.*;
 
@@ -304,6 +305,24 @@ public class EasyProblemSet1 {
     }
 
     /**
+     * 面试题145
+     * 二叉树的后序遍历
+     * @param root 根节点
+     * @return 后序遍历结果
+     */
+    public List<Integer> postorderTraversal(TreeNode root) {
+
+    }
+
+
+
+    /**
+     * 二进制求和
+     */
+//    public static String addBinary(String a, String b) {
+//    }
+
+    /**
      * 面试题198
      * 打家劫舍
      * @param nums
@@ -344,6 +363,36 @@ public class EasyProblemSet1 {
             s[end] = temp;
             start ++;
             end -- ;
+        }
+    }
+
+    /**
+     * 面试题557
+     * 反转字符串中的单词III
+     * @param s
+     * @return
+     */
+    public String reverseWords(String s) {
+        if (s == null || s.length() == 0) return s;
+        String[] split = s.split(" ");
+        StringBuilder sb = new StringBuilder(split.length);
+        for (int i = 0 ; i < split.length ; i ++) {
+            for (int j = split[i].length() - 1 ; j >= 0; j --) {
+                sb.append(split[i].charAt(j));
+            }
+            if (i != split.length - 1) {
+                sb.append(" ");
+            }
+        }
+        return sb.toString();
+    }
+
+
+    public static boolean isPalindrome(String s) {
+        int left = 0, right = s.length() - 1;
+        
+        while (left <= right) {
+
         }
     }
 
@@ -422,6 +471,9 @@ public class EasyProblemSet1 {
         //将数字变成 0 的操作次数
 //        System.out.println(numberOfSteps(0));
         //IP地址无效化
-        System.out.println(defangIPaddr("1.1.1.1"));
+//        System.out.println(defangIPaddr("1.1.1.1"));
+        //二进制求和
+//        System.out.println(addBinary("11","1"));
+        isPalindrome("A man, a plan, a canal: Panama");
     }
 }
