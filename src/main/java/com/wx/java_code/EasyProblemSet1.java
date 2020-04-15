@@ -4,6 +4,7 @@ package com.wx.java_code;
 import com.wx.java_code.resource.ListNode;
 import com.wx.java_code.resource.TreeNode;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -303,6 +304,37 @@ public class EasyProblemSet1 {
         System.out.println("count = "+count);
         return count;
     }
+
+    /**
+     * 面试题22
+     * 括号生成
+     * @param n n对括号
+     * @return 符合条件的组合
+     */
+    public List<String> generateParenthesis(int n) {
+        if (n <= 0) {
+            return new ArrayList<>();
+        }
+        ArrayList<String> result = new ArrayList<>(n*2);
+        generateParenthesisHelper(l, r, item, result);
+        return result;
+    }
+
+    private void generateParenthesisHelper(int l, int r, String item, ArrayList<String> result) {
+        if (l > r) {
+            return;
+        }
+        if (l == 0 && r == 0) {
+            result.add(item);
+        }
+        if (l > 0) {
+            generateParenthesisHelper(l - 1, r, item+"(", result);
+        }
+        if (r > 0) {
+            generateParenthesisHelper(l, r - 1, item+")", result);
+        }
+    }
+
 
     /**
      * 面试题145
