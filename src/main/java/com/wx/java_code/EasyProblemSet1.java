@@ -33,6 +33,33 @@ public class EasyProblemSet1 {
     }
 
     /**
+     * 面试题 2
+     * 两数相加
+     * @param l1 加数
+     * @param l2 被加数
+     * @return 和
+     */
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode dummyHead = new ListNode(0);
+        ListNode p = l1, q = l2, curr = dummyHead;
+        int carry = 0;
+        while (p != null || q != null) {
+            int x = (p != null) ? p.val : 0;
+            int y = (q != null) ? q.val : 0;
+            int sum = carry + x + y;
+            carry = sum / 10;
+            curr.next = new ListNode(sum % 10);
+            curr = curr.next;
+            if (p != null) p = p.next;
+            if (q != null) q = q.next;
+        }
+        if (carry > 0) {
+            curr.next = new ListNode(carry);
+        }
+        return dummyHead.next;
+    }
+
+    /**
      * 整数反转
      */
     public static int reverse(int x) {
@@ -334,6 +361,24 @@ public class EasyProblemSet1 {
             generateParenthesisHelper(l, r - 1, item+")", result);
         }
     }
+
+
+    /**
+     * 面试题46
+     * 全排列
+     * @param nums
+     * @return
+     */
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+
+
+
+        return result;
+    }
+
+
+
 
 
     /**
