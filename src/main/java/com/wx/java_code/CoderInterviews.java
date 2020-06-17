@@ -1,10 +1,12 @@
 package com.wx.java_code;
 
 import com.wx.java_code.resource.ListNode;
+import com.wx.java_code.resource.TreeNode;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+
 
 /**
  * @Desc 程序员面试宝典题目代码
@@ -68,6 +70,36 @@ public class CoderInterviews {
         node.val = node.next.val;
         node.next = node.next.next;
     }
+
+
+    /**
+     * 面试题04.02
+     * 最小高度树
+     * @param nums 递增数组
+     * @return 树
+     */
+    public TreeNode sortedArrayToBST(int[] nums) {
+        if (nums == null || nums.length <= 0){
+            return null;
+        }
+        TreeNode root = new TreeNode(nums[nums.length / 2]);
+        TreeNode temp = root;
+        for (int i = 0 ; i < nums.length ; i ++) {
+
+        }
+        return root;
+    }
+
+    /**
+     * 面试题04.04
+     * 检查平衡性
+     * @param root 根节点
+     * @return 是否平衡
+     */
+    public boolean isBalanced(TreeNode root) {
+
+    }
+
 
     /**
      * 面试题16.01
