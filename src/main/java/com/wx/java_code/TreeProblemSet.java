@@ -2,6 +2,7 @@ package com.wx.java_code;
 
 import com.wx.java_code.resource.TreeNode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,10 +42,21 @@ public class TreeProblemSet {
      * @param root 二叉树根节点
      * @return 中序遍历集合
      */
-    public List<Integer> inorderTraversal(TreeNode root) {
+    public static List<Integer> inorderTraversal(TreeNode root) {
         //递归
+        List<Integer> list = new ArrayList<>();
+        midTraver(root, list);
         //迭代
 
+        return list;
+    }
+
+    private static void midTraver(TreeNode root, List<Integer> list) {
+        if (root != null) {
+            list.add(root.val);
+            midTraver(root.left, list);
+            midTraver(root.right, list);
+        }
     }
 
 }

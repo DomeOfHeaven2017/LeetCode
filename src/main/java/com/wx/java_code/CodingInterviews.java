@@ -586,11 +586,13 @@ public class CodingInterviews {
      * @return 是否为平衡二叉树
      */
     public boolean isBalanced(TreeNode root) {
-        if (root == null) {
-            return true;
-        } else {
-            return isBalanced(root.left) && isBalanced(root.right) && (Math.abs(maxDepth(root.left) - maxDepth(root.right)) <= 1);
-        }
+//        if (root == null) {
+//            return true;
+//        } else {
+//            return isBalanced(root.left) && isBalanced(root.right) && (Math.abs(maxDepth(root.left) - maxDepth(root.right)) <= 1);
+//        }
+        return (root == null) || (isBalanced(root.left) && isBalanced(root.right) && (Math.abs(
+                maxDepth(root.left) - maxDepth(root.right)) <= 1));
     }
 
     /**
