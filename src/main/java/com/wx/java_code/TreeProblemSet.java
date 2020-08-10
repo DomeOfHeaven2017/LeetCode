@@ -1,10 +1,9 @@
 package com.wx.java_code;
 
+import com.wx.java_code.resource.Node;
 import com.wx.java_code.resource.TreeNode;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * Created by wx on 20-6-7
@@ -16,7 +15,7 @@ import java.util.Stack;
  *  102. 二叉树的层序遍历{@link #levelOrder}
  *  144. 二叉树的前序遍历{@link #preorderTraversal}
  *  145. 二叉树的后序遍历{@link #postorderTraversal}
- *
+ *   590.N叉树的后续遍历{@link #postorder}
  **/
 public class TreeProblemSet {
 
@@ -53,14 +52,20 @@ public class TreeProblemSet {
 //        treeNodeTraversal(list, root, 1);
 //        return list;
         //迭代
-        Stack<TreeNode> stack = new Stack<>();
         if (root == null) {
             return list;
         }
-        stack.add(root);
-        while (!stack.isEmpty()) {
-            TreeNode node = stack.pop();
-
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode node = root;
+        while (!stack.isEmpty() || node != null) {
+            if (node != null) {
+                stack.push(node);
+                node = node.left;
+            } else {
+                node = stack.pop();
+                list.add(node.val);
+                node = node.right;
+            }
         }
         return list;
     }
@@ -71,7 +76,47 @@ public class TreeProblemSet {
      * @return 层序遍历集合
      */
     public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (root == null) {
+            return result;
+        }
+        //非递归方式
+        Queue<TreeNode> queue = new ArrayDeque<>();
+        queue.add(root);
+        while ( !queue.isEmpty()) {
+            List<Integer> temp = new ArrayList<>();
+            int size = queue.size();
+            for (int i = 0 ; i < size ; i ++) {
+                TreeNode node = queue.poll();
+                if (node !=null) {
+                    temp.add(node.val);
+                    if (node.left != null) {
+                        queue.add(node.left);
+                    }
+                    if (node.right != null) {
+                        queue.add(node.right);
+                    }
+                }
+            }
+            result.add(temp);
+        }
 
+        //递归方式
+        levelOrderDfs(1, root, result);
+        return result;
+    }
+
+    private void levelOrderDfs(int level, TreeNode node, List<List<Integer>> lists) {
+        if (lists.size() < level) {
+            lists.add(new ArrayList<>());
+        }
+        lists.get(level - 1).add(node.val);
+        if (node.left != null) {
+            levelOrderDfs(level + 1, node.left, lists);
+        }
+        if (node.right != null) {
+            levelOrderDfs(level + 1, node.right, lists);
+        }
     }
 
     /**
@@ -84,11 +129,11 @@ public class TreeProblemSet {
         List<Integer> list = new ArrayList<>();
 //        treeNodeTraversal(list, root, 0);
         //迭代
-        Stack<TreeNode> stack = new Stack<>();
         if (root == null) {
             return list;
         }
-        stack.add(root);
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
         while (!stack.isEmpty()) {
             TreeNode node = stack.pop();
             list.add(node.val);
@@ -108,8 +153,29 @@ public class TreeProblemSet {
      * @return 后序序遍历集合
      */
     public List<Integer> postorderTraversal(TreeNode root) {
+        //递归
         List<Integer> list = new ArrayList<>();
         treeNodeTraversal(list, root, 2);
+        //非递归
+        if (root == null) {
+            return list;
+        }
+        Stack<TreeNode>  stack = new Stack<>();
+        Stack<Integer> temp = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            temp.push(node.val);
+            if (node.left != null) {
+                stack.push(node.left);
+            }
+            if (node.right != null) {
+                stack.push(node.right);
+            }
+        }
+        while (!temp.isEmpty()) {
+            list.add(temp.pop());
+        }
         return list;
     }
 
@@ -144,5 +210,25 @@ public class TreeProblemSet {
                 break;
         }
     }
+
+    /**
+     *  590.N叉树的后序遍历
+     * @param root 根节点
+     * @return 遍历数组
+     */
+    List<Integer> result = new ArrayList<>();
+    public List<Integer> postorder(Node root) {
+        if (root == null) {
+            return result;
+        }
+        //递归
+        if (root.children != null) {
+            root.children.forEach(this::postorder);
+        }
+        result.add(root.val);
+        //非递归
+        return result;
+    }
+
 
 }
