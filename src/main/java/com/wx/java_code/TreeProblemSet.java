@@ -16,6 +16,7 @@ import java.util.*;
  *  144. 二叉树的前序遍历{@link #preorderTraversal}
  *  145. 二叉树的后序遍历{@link #postorderTraversal}
  *   590.N叉树的后续遍历{@link #postorder}
+ *   1379.找出克隆二叉树中的相同节点{@link #getTargetCopy}
  **/
 public class TreeProblemSet {
 
@@ -228,6 +229,36 @@ public class TreeProblemSet {
         result.add(root.val);
         //非递归
         return result;
+    }
+
+    /**
+     *  1379. 找出克隆二叉树中的相同节点
+     * @param original 原始树
+     * @param cloned 克隆树
+     * @param target 目标节点
+     * @return 克隆树目标节点
+     *  两个树同时进行遍历，对地址进行比较
+     */
+    public final TreeNode getTargetCopy(final TreeNode original, final TreeNode cloned, final TreeNode target) {
+        //由于两棵树相同，只判断一个即可
+        if (original == null) {
+            return null;
+        }
+        //访问根节点，比较地址是否相同
+        if (original == target) {
+            return cloned;
+        }
+        //递归遍历左子节点
+        TreeNode node = getTargetCopy(original.left, cloned.left, target);
+        if (node != null) {
+            return node;
+        }
+        //递归遍历右子节点
+        node = getTargetCopy(original.right, cloned.right, target);
+        if (node != null) {
+            return node;
+        }
+        return null;
     }
 
 
