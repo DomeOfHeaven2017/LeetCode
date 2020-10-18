@@ -6,6 +6,7 @@ import com.wx.java_code.resource.ListNode;
  * Created by wx on 20-6-7
  * Description: LeetCode 链表相关问题集合
  * 2. 两数相加 ${@link #addTwoNumbers}
+ * 83. 删除排序链表中的重复元素 ${@link #deleteDuplicates}
  * 206. 反转链表 ${@link #reverseList}
  */
 public class ListProblemSet {
@@ -54,6 +55,27 @@ public class ListProblemSet {
             tmp = tmp.next;
         }
         return result.next;
+    }
+
+    /**
+     * 83. 删除排序链表中的重复元素
+     * @param head 链表头结点
+     * @return 去重后的链表头结点
+     */
+    public ListNode deleteDuplicates(ListNode head) {
+        if (head == null) return null;
+        ListNode slow = head, fast = head;
+        while (fast != null) {
+            if (fast.val != slow.val) {
+                slow = slow.next;
+                slow.val = fast.val;
+//                slow.next = fast;
+//                slow = slow.next;
+            }
+            fast = fast.next;
+        }
+        slow.next = null;
+        return head;
     }
 
     /**

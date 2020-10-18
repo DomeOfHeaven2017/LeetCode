@@ -4,7 +4,6 @@ package com.wx.java_code;
 import com.wx.java_code.resource.ListNode;
 import com.wx.java_code.resource.TreeNode;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -343,7 +342,7 @@ public class EasyProblemSet1 {
             return new ArrayList<>();
         }
         ArrayList<String> result = new ArrayList<>(n*2);
-        generateParenthesisHelper(l, r, item, result);
+//        generateParenthesisHelper(l, r, item, result);
         return result;
     }
 
@@ -388,7 +387,7 @@ public class EasyProblemSet1 {
      * @return 后序遍历结果
      */
     public List<Integer> postorderTraversal(TreeNode root) {
-
+        return null;
     }
 
 
@@ -471,6 +470,7 @@ public class EasyProblemSet1 {
         while (left <= right) {
 
         }
+        return false;
     }
 
 

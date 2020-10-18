@@ -97,7 +97,7 @@ public class CoderInterviews {
      * @return 是否平衡
      */
     public boolean isBalanced(TreeNode root) {
-
+        return false;
     }
 
 
