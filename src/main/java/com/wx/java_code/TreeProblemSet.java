@@ -17,6 +17,7 @@ import java.util.*;
  *  145. 二叉树的后序遍历{@link #postorderTraversal}
  *   590.N叉树的后续遍历{@link #postorder}
  *   1379.找出克隆二叉树中的相同节点{@link #getTargetCopy}
+ *
  **/
 public class TreeProblemSet {
 
@@ -260,6 +261,37 @@ public class TreeProblemSet {
         }
         return null;
     }
+
+    /**
+     * 根据后序遍历数组还原二叉搜索树
+     * @param posArr  后序遍历数组
+     * @return 二叉树头结点
+     */
+    public static TreeNode posArrayToBst(int[] posArr) {
+        return handleArrayToBst(posArr, 0, posArr.length - 1);
+    }
+
+    private static TreeNode handleArrayToBst(int[] posArr, int start, int end) {
+        //无子结点
+        if (start > end) {
+            return null;
+        }
+        //后序遍历，最后面是父节点
+        TreeNode node = new TreeNode(posArr[end]);
+        if (start == end) {
+            return  node;
+        }
+        int m = start - 1;
+        for (int i = start; i < end; i ++) {
+            if (posArr[i] < posArr[end]) {
+                m = i;
+            }
+        }
+        node.left = handleArrayToBst(posArr, start, m);
+        node.right = handleArrayToBst(posArr, m + 1, end - 1);
+        return node;
+    }
+
 
 
 }
