@@ -16,6 +16,7 @@ import java.util.*;
  *  144. 二叉树的前序遍历{@link #preorderTraversal}
  *  145. 二叉树的后序遍历{@link #postorderTraversal}
  *   590.N叉树的后续遍历{@link #postorder}
+ *   1302. 层数最深叶子节点的和 {@link #deepestLeavesSum}
  *   1379.找出克隆二叉树中的相同节点{@link #getTargetCopy}
  *
  **/
@@ -39,7 +40,7 @@ public class TreeProblemSet {
      * @param root 二叉树根节点
      * @return 深度
      */
-    public static int maxDepth(TreeNode root) {
+    public int maxDepth(TreeNode root) {
         return root == null ? 0 : Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
     }
 
@@ -233,6 +234,37 @@ public class TreeProblemSet {
     }
 
     /**
+     * 1302. 层数最深叶子节点的和
+     * @param root 根节点
+     * @return 最深叶子节点的和
+     */
+    private int maxDepth = -1;
+    private int sum = 0;
+    public int deepestLeavesSum(TreeNode root) {
+        return deepestLeavesSumDfs(root, 0);
+    }
+
+    /**
+     * 深度优先搜索方式
+     */
+    private int deepestLeavesSumDfs(TreeNode root, int depth) {
+        if (root == null) return 0;
+        if (maxDepth < depth) {
+            maxDepth = depth;
+            sum = root.val;
+        } else {
+            sum += root.val;
+        }
+        if (root.left != null) {
+            deepestLeavesSumDfs(root.left, depth + 1);
+        }
+        if (root.right != null) {
+            deepestLeavesSumDfs(root.right, depth + 1);
+        }
+        return sum;
+    }
+
+    /**
      *  1379. 找出克隆二叉树中的相同节点
      * @param original 原始树
      * @param cloned 克隆树
@@ -267,11 +299,11 @@ public class TreeProblemSet {
      * @param posArr  后序遍历数组
      * @return 二叉树头结点
      */
-    public static TreeNode posArrayToBst(int[] posArr) {
+    public TreeNode posArrayToBst(int[] posArr) {
         return handleArrayToBst(posArr, 0, posArr.length - 1);
     }
 
-    private static TreeNode handleArrayToBst(int[] posArr, int start, int end) {
+    private TreeNode handleArrayToBst(int[] posArr, int start, int end) {
         //无子结点
         if (start > end) {
             return null;
