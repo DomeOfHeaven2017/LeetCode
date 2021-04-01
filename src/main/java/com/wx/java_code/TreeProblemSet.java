@@ -4,17 +4,20 @@ import com.wx.java_code.resource.Node;
 import com.wx.java_code.resource.TreeNode;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 /**
  * Created by wx on 20-6-7
  * Description: LeetCode 树相关问题集合
  * 问题列表：
- *   面试题 04.04. 检查平衡性{@link #isBalanced}
+ * 面试题 04.02. 最小高度树{@link #sortedArrayToBST}
+ *  面试题 04.04. 检查平衡性{@link #isBalanced}
  *  面试题55 - I  二叉树的深度 {@link #maxDepth}
  *  94.二叉树的中序遍历{@link #inorderTraversal}
  *  102. 二叉树的层序遍历{@link #levelOrder}
  *  144. 二叉树的前序遍历{@link #preorderTraversal}
  *  145. 二叉树的后序遍历{@link #postorderTraversal}
+ *  589. N 叉树的前序遍历{@link #preorder}
  *   590.N叉树的后续遍历{@link #postorder}
  *   1302. 层数最深叶子节点的和 {@link #deepestLeavesSum}
  *   1379.找出克隆二叉树中的相同节点{@link #getTargetCopy}
@@ -23,6 +26,16 @@ import java.util.*;
 public class TreeProblemSet {
 
     public static void main(String[] args) {
+
+    }
+
+    /**
+     * 面试题 04.02. 最小高度树
+     *
+     * @param nums
+     * @return
+     */
+    public TreeNode<Integer> sortedArrayToBST(int[] nums) {
 
     }
 
@@ -49,7 +62,7 @@ public class TreeProblemSet {
      * @param root 二叉树根节点
      * @return 中序遍历集合
      */
-    public List<Integer> inorderTraversal(TreeNode root) {
+    public List<Integer> inorderTraversal(TreeNode<Integer> root) {
         //递归
         List<Integer> list = new ArrayList<>();
 //        treeNodeTraversal(list, root, 1);
@@ -58,8 +71,8 @@ public class TreeProblemSet {
         if (root == null) {
             return list;
         }
-        Stack<TreeNode> stack = new Stack<>();
-        TreeNode node = root;
+        Stack<TreeNode<Integer>> stack = new Stack<>();
+        TreeNode<Integer> node = root;
         while (!stack.isEmpty() || node != null) {
             if (node != null) {
                 stack.push(node);
@@ -78,19 +91,19 @@ public class TreeProblemSet {
      * @param root 二叉树根节点
      * @return 层序遍历集合
      */
-    public List<List<Integer>> levelOrder(TreeNode root) {
+    public List<List<Integer>> levelOrder(TreeNode<Integer> root) {
         List<List<Integer>> result = new ArrayList<>();
         if (root == null) {
             return result;
         }
         //非递归方式
-        Queue<TreeNode> queue = new ArrayDeque<>();
+        Queue<TreeNode<Integer>> queue = new ArrayDeque<>();
         queue.add(root);
         while ( !queue.isEmpty()) {
             List<Integer> temp = new ArrayList<>();
             int size = queue.size();
             for (int i = 0 ; i < size ; i ++) {
-                TreeNode node = queue.poll();
+                TreeNode<Integer> node = queue.poll();
                 if (node !=null) {
                     temp.add(node.val);
                     if (node.left != null) {
@@ -109,7 +122,7 @@ public class TreeProblemSet {
         return result;
     }
 
-    private void levelOrderDfs(int level, TreeNode node, List<List<Integer>> lists) {
+    private void levelOrderDfs(int level, TreeNode<Integer> node, List<List<Integer>> lists) {
         if (lists.size() < level) {
             lists.add(new ArrayList<>());
         }
@@ -127,7 +140,7 @@ public class TreeProblemSet {
      * @param root 二叉树根节点
      * @return 前序遍历集合
      */
-    public List<Integer> preorderTraversal(TreeNode root) {
+    public List<Integer> preorderTraversal(TreeNode<Integer> root) {
         //递归
         List<Integer> list = new ArrayList<>();
 //        treeNodeTraversal(list, root, 0);
@@ -135,10 +148,10 @@ public class TreeProblemSet {
         if (root == null) {
             return list;
         }
-        Stack<TreeNode> stack = new Stack<>();
+        Stack<TreeNode<Integer>> stack = new Stack<>();
         stack.push(root);
         while (!stack.isEmpty()) {
-            TreeNode node = stack.pop();
+            TreeNode<Integer> node = stack.pop();
             list.add(node.val);
             if (node.right != null) {
                 stack.push(node.right);
@@ -155,7 +168,7 @@ public class TreeProblemSet {
      * @param root 二叉树根节点
      * @return 后序序遍历集合
      */
-    public List<Integer> postorderTraversal(TreeNode root) {
+    public List<Integer> postorderTraversal(TreeNode<Integer> root) {
         //递归
         List<Integer> list = new ArrayList<>();
         treeNodeTraversal(list, root, 2);
@@ -163,11 +176,11 @@ public class TreeProblemSet {
         if (root == null) {
             return list;
         }
-        Stack<TreeNode>  stack = new Stack<>();
+        Stack<TreeNode<Integer>>  stack = new Stack<>();
         Stack<Integer> temp = new Stack<>();
         stack.push(root);
         while (!stack.isEmpty()) {
-            TreeNode node = stack.pop();
+            TreeNode<Integer> node = stack.pop();
             temp.push(node.val);
             if (node.left != null) {
                 stack.push(node.left);
@@ -191,7 +204,7 @@ public class TreeProblemSet {
      *             1   - >  中序遍历
      *             2  - >  后序遍历
      */
-    private void treeNodeTraversal(List<Integer> list, TreeNode root, int flag){
+    private void treeNodeTraversal(List<Integer> list, TreeNode<Integer> root, int flag){
         if (root == null) {
             return;
         };
@@ -215,22 +228,59 @@ public class TreeProblemSet {
     }
 
     /**
+     * 589. N 叉树的前序遍历
+     * @param root 根节点
+     * @return 前序遍历序列
+     */
+    public List<Integer> preorder(Node<Integer> root) {
+        return preorderRecursive(root, new ArrayList<>());
+    }
+
+    /**
+     * 递归方式
+     */
+    private List<Integer> preorderRecursive(Node<Integer> root, List<Integer> result) {
+        if (root == null ) return result;
+        result.add(root.val);
+        if (root.children != null) {
+            root.children.forEach(node -> preorderRecursive(node, result));
+        }
+        return result;
+    }
+    /**
+     * 迭代方式
+     */
+    private List<Integer> preorderIterator(Node<Integer> root) {
+        List<Integer> result = new ArrayList<>();
+
+        return result;
+    }
+
+    /**
      *  590.N叉树的后序遍历
      * @param root 根节点
      * @return 遍历数组
      */
     List<Integer> result = new ArrayList<>();
-    public List<Integer> postorder(Node root) {
-        if (root == null) {
-            return result;
-        }
-        //递归
+    public List<Integer> postorder(Node<Integer> root) {
+        return postorderRecurize(root, new ArrayList<>());
+    }
+    /**
+     * 递归方式
+     */
+    private List<Integer> postorderRecurize(Node<Integer> root, List<Integer> result) {
+        if (root == null) return result;
         if (root.children != null) {
-            root.children.forEach(this::postorder);
+            root.children.forEach(node -> postorderRecurize(node, result));
         }
         result.add(root.val);
-        //非递归
         return result;
+    }
+    /**
+     * 迭代方式
+     */
+    private List<Integer> postorderIterator(Node<Integer> root) {
+
     }
 
     /**
@@ -247,7 +297,7 @@ public class TreeProblemSet {
     /**
      * 深度优先搜索方式
      */
-    private int deepestLeavesSumDfs(TreeNode root, int depth) {
+    private int deepestLeavesSumDfs(TreeNode<Integer> root, int depth) {
         if (root == null) return 0;
         if (maxDepth < depth) {
             maxDepth = depth;
