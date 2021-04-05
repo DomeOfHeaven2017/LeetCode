@@ -17,6 +17,7 @@ import java.util.function.Consumer;
  *  102. 二叉树的层序遍历{@link #levelOrder}
  *  144. 二叉树的前序遍历{@link #preorderTraversal}
  *  145. 二叉树的后序遍历{@link #postorderTraversal}
+ *  429. N 叉树的层序遍历{@link #levelOrder}
  *  589. N 叉树的前序遍历{@link #preorder}
  *   590.N叉树的后续遍历{@link #postorder}
  *   1302. 层数最深叶子节点的和 {@link #deepestLeavesSum}
@@ -228,6 +229,54 @@ public class TreeProblemSet {
     }
 
     /**
+     * 429. N 叉树的层序遍历
+     * @param root 根节点
+     * @return 遍历数组
+     */
+    public List<List<Integer>> levelOrderN(Node<Integer> root) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (root != null) {
+            levelOrderNRecursive(result, root, 0);
+        }
+        return result;
+    }
+
+    /**
+     * N叉树遍历递归方式
+     */
+    public void levelOrderNRecursive(List<List<Integer>> result, Node<Integer> node, int level) {
+        if (result.size() <= level) {
+            result.add(new ArrayList<>());
+        }
+        result.get(level).add(node.val);
+        for (Node<Integer> n : node.children) {
+            levelOrderNRecursive(result, n, level + 1);
+        }
+    }
+
+    /**
+     * N叉树遍历迭代方式
+     */
+    private List<List<Integer>> levelOrderNIterator(Node<Integer> root) {
+        List<List<Integer>> result = new ArrayList<>();
+        LinkedList<Node<Integer>> temp = new LinkedList<>();
+        if (root != null) {
+            temp.add(root);
+           while (!temp.isEmpty()) {
+               int size = temp.size();
+               List<Integer> list = new ArrayList<>(size);
+               for (int i = 0; i < size; i++) {
+                   Node<Integer> node = temp.pop();
+                   list.add(node.val);
+                   temp.addAll(node.children);
+               }
+               result.add(list);
+           }
+        }
+        return result;
+    }
+
+    /**
      * 589. N 叉树的前序遍历
      * @param root 根节点
      * @return 前序遍历序列
@@ -252,7 +301,20 @@ public class TreeProblemSet {
      */
     private List<Integer> preorderIterator(Node<Integer> root) {
         List<Integer> result = new ArrayList<>();
-
+        if (root != null) {
+            Stack<Node<Integer>> stack = new Stack<>();
+            stack.push(root);
+            while (!stack.isEmpty()) {
+                Node<Integer> node = stack.pop();
+                result.add(node.val);
+                List<Node<Integer>> children = node.children;
+                if (children != null && children.size() > 0) {
+                    for (int i = children.size() - 1; i >= 0; i--) {
+                        stack.push(children.get(i));
+                    }
+                }
+            }
+        }
         return result;
     }
 
@@ -280,7 +342,47 @@ public class TreeProblemSet {
      * 迭代方式
      */
     private List<Integer> postorderIterator(Node<Integer> root) {
-
+        List<Integer> result = new ArrayList<>();
+        if (root != null) {
+            Stack<Node<Integer>> stack = new Stack<>();
+            stack.add(root);
+            while (!stack.isEmpty()) {
+                Node<Integer> node = stack.pop();
+                result.add(node.val);
+                List<Node<Integer>> children = node.children;
+                if (children != null && !children.isEmpty()) {
+                    for (Node<Integer> n : children) {
+                        stack.push(n);
+                    }
+                }
+            }
+            Collections.reverse(result);
+        }
+        return result;
+    }
+    /**
+     * 双栈方式
+     */
+    private List<Integer> postorderDoubleStack(Node<Integer> root) {
+        List<Integer> result = new ArrayList<>();
+        if (root != null) {
+            Stack<Node<Integer>> stack = new Stack<>();
+            Stack<Integer> temp = new Stack<>();
+            stack.push(root);
+            while (!stack.isEmpty()) {
+                Node<Integer> node = stack.pop();
+                temp.push(node.val);
+                if (node.children != null) {
+                    for (int i = node.children.size() - 1; i >= 0; i--) {
+                        stack.push(node.children.get(i));
+                    }
+                }
+            }
+            while (!temp.isEmpty()) {
+                result.add(temp.pop());
+            }
+        }
+        return result;
     }
 
     /**
@@ -349,17 +451,17 @@ public class TreeProblemSet {
      * @param posArr  后序遍历数组
      * @return 二叉树头结点
      */
-    public TreeNode posArrayToBst(int[] posArr) {
+    public TreeNode<Integer> posArrayToBst(int[] posArr) {
         return handleArrayToBst(posArr, 0, posArr.length - 1);
     }
 
-    private TreeNode handleArrayToBst(int[] posArr, int start, int end) {
+    private TreeNode<Integer> handleArrayToBst(int[] posArr, int start, int end) {
         //无子结点
         if (start > end) {
             return null;
         }
         //后序遍历，最后面是父节点
-        TreeNode node = new TreeNode(posArr[end]);
+        TreeNode<Integer> node = new TreeNode<>(posArr[end]);
         if (start == end) {
             return  node;
         }
