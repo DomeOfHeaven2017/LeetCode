@@ -18,6 +18,7 @@ import java.util.function.Consumer;
  *  144. 二叉树的前序遍历{@link #preorderTraversal}
  *  145. 二叉树的后序遍历{@link #postorderTraversal}
  *  429. N 叉树的层序遍历{@link #levelOrder}
+ *  559. N 叉树的最大深度{@link #maxDepthN}
  *  589. N 叉树的前序遍历{@link #preorder}
  *   590.N叉树的后续遍历{@link #postorder}
  *   1302. 层数最深叶子节点的和 {@link #deepestLeavesSum}
@@ -274,6 +275,49 @@ public class TreeProblemSet {
            }
         }
         return result;
+    }
+
+    /**
+     * 559. N 叉树的最大深度
+     * @param root 根节点
+     * @return 最大深度
+     */
+    public int maxDepthN(Node<Integer> root) {
+        return maxDepthNDfs(root);
+    }
+
+    /**
+     * 深度优先搜索方式
+     */
+    private int maxDepthNDfs(Node<Integer> node) {
+        if (node == null) {
+            return 0;
+        }
+        int maxDepth = 1;
+        for (Node<Integer> n : node.children) {
+            maxDepth = Math.max(maxDepth, 1 + maxDepthNDfs(n));
+        }
+        return maxDepth;
+    }
+
+    /**
+     * 广度优先算法方式
+     */
+    private int maxDepthNBfs(Node<Integer> node) {
+        int depth = 0;
+        if (node != null) {
+            LinkedList<Node<Integer>> temp = new LinkedList<>();
+            temp.push(node);
+            while (!temp.isEmpty()) {
+                int size = temp.size();
+                for (int i = 0; i < size; i++) {
+                    Node<Integer> n = temp.pop();
+                    temp.addAll(n.children);
+                }
+                depth++;
+            }
+        }
+        return depth;
     }
 
     /**
