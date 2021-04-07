@@ -14,6 +14,7 @@ import java.util.function.Consumer;
  *  面试题 04.04. 检查平衡性{@link #isBalanced}
  *  面试题55 - I  二叉树的深度 {@link #maxDepth}
  *  94.二叉树的中序遍历{@link #inorderTraversal}
+ *  101. 对称二叉树 {@link #isSymmetric}
  *  102. 二叉树的层序遍历{@link #levelOrder}
  *  144. 二叉树的前序遍历{@link #preorderTraversal}
  *  145. 二叉树的后序遍历{@link #postorderTraversal}
@@ -86,6 +87,56 @@ public class TreeProblemSet {
             }
         }
         return list;
+    }
+
+    /**
+     * 101. 对称二叉树
+     * @param root 根节点
+     * @return 是否为对称二叉树
+     */
+    public boolean isSymmetric(TreeNode<Integer> root) {
+        return isSymmetricDfs(root, root);
+    }
+
+    /**
+     * 递归，深度优先搜索方式
+     */
+    private boolean isSymmetricDfs(TreeNode<Integer> n1, TreeNode<Integer> n2) {
+        //n1 == n2 == null
+        if (n1 == null && n2 == null) {
+            return true;
+        }
+        //n1 ,n2有且只有一个为null
+        if (n1 == null || n2 == null) {
+            return false;
+        }
+        //n1,n2不为null,对称需要其根节点相等并且左右子树镜像对称
+        return (n1.val == n2.val)
+                && isSymmetricDfs(n1.left, n2.right)
+                && isSymmetricDfs(n1.right, n2.left);
+    }
+    /**
+     * 队列，广度优先搜索方式
+     * 每次将其两个子树的左右节点交叉入队，然后每次弹出两个节点（p的左节点和q的右节点），比较其大小
+     */
+    private boolean isSymmetricBfs(TreeNode<Integer> root) {
+        Queue<TreeNode<Integer>> queue = new LinkedList<>();
+        queue.add(root);
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            TreeNode<Integer> p = queue.poll();
+            TreeNode<Integer> q = queue.poll();
+            if (p == null && q == null) continue;
+            if (p == null || q == null) return false;
+            if (p.val != q.val) return false;
+            //交叉入队
+            queue.add(p.left);
+            queue.add(q.right);
+
+            queue.add(p.right);
+            queue.add(q.left);
+        }
+        return true;
     }
 
     /**
