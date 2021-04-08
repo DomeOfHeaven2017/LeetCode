@@ -14,8 +14,10 @@ import java.util.function.Consumer;
  *  面试题 04.04. 检查平衡性{@link #isBalanced}
  *  面试题55 - I  二叉树的深度 {@link #maxDepth}
  *  94.二叉树的中序遍历{@link #inorderTraversal}
+ *  100. 相同的树 {@link #isSameTree}
  *  101. 对称二叉树 {@link #isSymmetric}
  *  102. 二叉树的层序遍历{@link #levelOrder}
+ *  107. 二叉树的层序遍历 II {@link #levelOrderBottom}
  *  144. 二叉树的前序遍历{@link #preorderTraversal}
  *  145. 二叉树的后序遍历{@link #postorderTraversal}
  *  429. N 叉树的层序遍历{@link #levelOrder}
@@ -87,6 +89,53 @@ public class TreeProblemSet {
             }
         }
         return list;
+    }
+
+    /**
+     * 100. 相同的树
+     * @param p p二叉树
+     * @param q q二叉树
+     * @return 两个树是否相同
+     */
+    public boolean isSameTree(TreeNode<Integer> p, TreeNode<Integer> q) {
+        return isSameTreeDfs(p, q);
+    }
+
+    /**
+     * 深度优先搜索方式
+     */
+    private boolean isSameTreeDfs(TreeNode<Integer> p, TreeNode<Integer> q) {
+        if (p == null && q== null) {
+            return true;
+        }
+        if (p == null || q == null) {
+            return false;
+        }
+        return p.val.equals(q.val)
+                && isSameTreeDfs(p.left, q.left)
+                && isSameTreeDfs(p.right, q.right);
+    }
+
+    /**
+     * 广度优先搜索方式
+     */
+    private boolean isSameTreeBfs(TreeNode<Integer> p, TreeNode<Integer> q) {
+        Queue<TreeNode<Integer>> queue = new LinkedList<>();
+        queue.add(p);
+        queue.add(q);
+        while (!queue.isEmpty()) {
+            TreeNode<Integer> n1 = queue.poll();
+            TreeNode<Integer> n2 = queue.poll();
+            if (n1 == null && n2 == null) continue;;
+            if (n1 == null || n2 == null) return false;
+            if (!n1.val.equals(n2.val)) return false;
+            queue.offer(n1.left);
+            queue.offer(n2.left);
+
+            queue.offer(n1.right);
+            queue.offer(n2.right);
+        }
+        return true;
     }
 
     /**
@@ -186,6 +235,38 @@ public class TreeProblemSet {
         if (node.right != null) {
             levelOrderDfs(level + 1, node.right, lists);
         }
+    }
+
+    /**
+     * 107. 二叉树的层序遍历 II
+     * @param root 根节点
+     * @return 层序遍历结果
+     */
+    public List<List<Integer>> levelOrderBottom(TreeNode<Integer> root) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (root != null) {
+            Queue<TreeNode<Integer>> queue  = new LinkedList<>();
+            queue.offer(root);
+            while (!queue.isEmpty()) {
+                int size = queue.size();
+                List<Integer> list = new ArrayList<>();
+                for (int i = 0; i < size; i++) {
+                    TreeNode<Integer> node = queue.poll();
+                    if (node != null) {
+                        list.add(node.val);
+                        if (node.left != null) {
+                            queue.add(node.left);
+                        }
+                        if (node.right != null) {
+                            queue.add(node.right);
+                        }
+                    }
+                }
+                result.add(list);
+            }
+            Collections.reverse(result);
+        }
+        return result;
     }
 
     /**
