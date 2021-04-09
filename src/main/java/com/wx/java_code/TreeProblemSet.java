@@ -4,7 +4,6 @@ import com.wx.java_code.resource.Node;
 import com.wx.java_code.resource.TreeNode;
 
 import java.util.*;
-import java.util.function.Consumer;
 
 /**
  * Created by wx on 20-6-7
@@ -18,6 +17,7 @@ import java.util.function.Consumer;
  *  101. 对称二叉树 {@link #isSymmetric}
  *  102. 二叉树的层序遍历{@link #levelOrder}
  *  107. 二叉树的层序遍历 II {@link #levelOrderBottom}
+ *  108. 将有序数组转换为二叉搜索树 {@link #sortedArrayToBST}
  *  144. 二叉树的前序遍历{@link #preorderTraversal}
  *  145. 二叉树的后序遍历{@link #postorderTraversal}
  *  429. N 叉树的层序遍历{@link #levelOrder}
@@ -31,16 +31,6 @@ import java.util.function.Consumer;
 public class TreeProblemSet {
 
     public static void main(String[] args) {
-
-    }
-
-    /**
-     * 面试题 04.02. 最小高度树
-     *
-     * @param nums
-     * @return
-     */
-    public TreeNode<Integer> sortedArrayToBST(int[] nums) {
 
     }
 
@@ -267,6 +257,24 @@ public class TreeProblemSet {
             Collections.reverse(result);
         }
         return result;
+    }
+
+    /**
+     * 108. 将有序数组转换为二叉搜索树
+     * @param nums 有序数组
+     * @return BST
+     */
+    public TreeNode<Integer> sortedArrayToBST(int[] nums) {
+        return arrayToBSTHelper(nums, 0, nums.length - 1);
+    }
+
+    private TreeNode<Integer> arrayToBSTHelper(int[] nums, int left, int right) {
+        if (left > right) return null;
+        int mid = (left - right) / 2 + right;
+        TreeNode<Integer> root = new TreeNode<>(nums[mid]);
+        root.left = arrayToBSTHelper(nums, left, mid - 1);
+        root.right = arrayToBSTHelper(nums, mid + 1, right);
+        return root;
     }
 
     /**
