@@ -18,6 +18,7 @@ import java.util.*;
  *  102. 二叉树的层序遍历{@link #levelOrder}
  *  107. 二叉树的层序遍历 II {@link #levelOrderBottom}
  *  108. 将有序数组转换为二叉搜索树 {@link #sortedArrayToBST}
+ *  111. 二叉树的最小深度 {@link #minDepth}
  *  144. 二叉树的前序遍历{@link #preorderTraversal}
  *  145. 二叉树的后序遍历{@link #postorderTraversal}
  *  429. N 叉树的层序遍历{@link #levelOrder}
@@ -275,6 +276,29 @@ public class TreeProblemSet {
         root.left = arrayToBSTHelper(nums, left, mid - 1);
         root.right = arrayToBSTHelper(nums, mid + 1, right);
         return root;
+    }
+
+    /**
+     * 111. 二叉树的最小深度
+     * @param root 根节点
+     * @return 最小深度
+     */
+    public int minDepth(TreeNode root) {
+        return minDepthDfs(root, 1, 1);
+    }
+
+    private int minDepthDfs(TreeNode<Integer> root, int depth, int minDepth) {
+        if (root == null) return 0;
+        if (depth < minDepth) {
+            minDepth = depth;
+        }
+        if (root.left != null) {
+            minDepthDfs(root.left, depth + 1, minDepth);
+        }
+        if (root.right != null) {
+            minDepthDfs(root.right, depth + 1, minDepth);
+        }
+        return minDepth;
     }
 
     /**

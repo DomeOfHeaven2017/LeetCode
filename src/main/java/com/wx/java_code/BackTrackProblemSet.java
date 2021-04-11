@@ -8,6 +8,7 @@ import java.util.List;
  * Created by wx on 21-3-28
  * @desc 回溯算法问题集合
  *  面试题 08.04. 幂集 {@link #subsets}
+ *  51. N 皇后 & 面试题 08.12. 八皇后 {@link #solveNQueens}
  *  46. 全排列 {@link #permute}
  */
 public class BackTrackProblemSet {
@@ -20,7 +21,6 @@ public class BackTrackProblemSet {
      * 面试题 08.04. 幂集
      * @param nums 集合元素
      * @return 集合幂集
-     * 回溯算法解决方式
      */
     public List<List<Integer>> subsets(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
@@ -29,9 +29,6 @@ public class BackTrackProblemSet {
     }
 
     /**
-     * 面试题 08.04. 幂集
-     * @param nums 集合元素
-     * @return 集合幂集
      * 迭代解决方式
      */
     public List<List<Integer>> subsetsIteration(int[] nums) {
@@ -48,6 +45,9 @@ public class BackTrackProblemSet {
         return result;
     }
 
+    /**
+     * 回溯算法解决方式
+     */
     private void subsetsBackTrack(List<List<Integer>> result, List<Integer> track, int[] nums, int index) {
         result.add(new ArrayList<>(track));
         for (int i = index; i < nums.length; i++) {
@@ -55,6 +55,75 @@ public class BackTrackProblemSet {
             subsetsBackTrack(result, track, nums, i + 1);
             track.remove(track.size() - 1);
         }
+    }
+
+    /**
+     * 51. N 皇后
+     * 面试题 08.12. 八皇后
+     * @param n n个皇后
+     * @return 棋盘排列结果
+     */
+    public List<List<String>> solveNQueens(int n) {
+        List<List<String>> result = new ArrayList<>();
+        //初始化参数
+        char[][] path = new char[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                path[i][j] = '.';
+            }
+        }
+        solveNQueensBackTrack(n, 0, result, path);
+        return result;
+    }
+
+    private void solveNQueensBackTrack(int n, int row, List<List<String>> result, char[][] path) {
+        if (n == row) {
+            List<String> temp = new ArrayList<>();
+            for (char[] chars : path) {
+                temp.add(String.valueOf(chars));
+            }
+            result.add(temp);
+            return;
+        }
+        for (int i = 0; i < n; i++){
+            if (!isQueensValid(path, row, i)) {
+                continue;
+            }
+            path[row][i] = 'Q';
+            solveNQueensBackTrack(n, row + 1, result, path);
+            path[row][i] = '.';
+        }
+    }
+
+    /**
+     * 判断当前皇后位置是否符合要求
+     * @param path 当前棋盘
+     * @param row 当前行
+     * @param col 当前列
+     * @return 是否有冲突
+     * 因为是自顶向下添加的，且每行添加一个，所以只需要判断上方，左上，右上是否有冲突即可
+     */
+    private boolean isQueensValid(char[][] path, int row, int col) {
+        int i = 0, j = 0;
+        //上方同列
+        for (i = row - 1; i >= 0; i--) {
+            if (path[i][col] == 'Q') {
+                return false;
+            }
+        }
+        //左上
+        for (i = row - 1,  j = col - 1; i >= 0 && j >= 0;i-- , j--) {
+            if (path[i][j] == 'Q') {
+                return false;
+            }
+        }
+        //右上
+        for (i = row - 1, j = col + 1; i >= 0 && j < path[0].length; i--, j++) {
+            if (path[i][j] == 'Q') {
+                return false;
+            }
+        }
+        return true;
     }
 
 
