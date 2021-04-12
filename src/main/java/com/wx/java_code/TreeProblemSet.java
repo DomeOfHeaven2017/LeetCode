@@ -283,22 +283,49 @@ public class TreeProblemSet {
      * @param root 根节点
      * @return 最小深度
      */
-    public int minDepth(TreeNode root) {
-        return minDepthDfs(root, 1, 1);
+    public int minDepth(TreeNode<Integer> root) {
+        return minDepthDfs(root);
     }
 
-    private int minDepthDfs(TreeNode<Integer> root, int depth, int minDepth) {
+    /**
+     * 深度优先搜索方式
+     */
+    private int minDepthDfs(TreeNode<Integer> root) {
         if (root == null) return 0;
-        if (depth < minDepth) {
-            minDepth = depth;
+        int left = minDepthDfs(root.left);
+        int right = minDepthDfs(root.right);
+
+        if (left == 0) return left + 1;
+        if (right == 0) return right + 1;
+        return Math.min(left, right) + 1;
+    }
+
+    /**
+     * 广度优先搜索方式
+     */
+    private int minDepthBfs(TreeNode<Integer> root) {
+        int mindepth = 0;
+        if (root != null) {
+            Queue<TreeNode<Integer>> queue = new LinkedList<>();
+            queue.add(root);
+            while (!queue.isEmpty()) {
+                int size = queue.size();
+                for (int i = 0; i < size; i++) {
+                    TreeNode<Integer> node = queue.poll();
+                    if (node.left == null && node.right == null) {
+                        return mindepth + 1;
+                    }
+                    if (node.left != null) {
+                        queue.offer(node.left);
+                    }
+                    if (node.right != null) {
+                        queue.offer(node.right)
+                    }
+                }
+                mindepth++;
+            }
         }
-        if (root.left != null) {
-            minDepthDfs(root.left, depth + 1, minDepth);
-        }
-        if (root.right != null) {
-            minDepthDfs(root.right, depth + 1, minDepth);
-        }
-        return minDepth;
+        return mindepth;
     }
 
     /**
