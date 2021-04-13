@@ -13,6 +13,7 @@ import java.util.*;
  *  面试题 04.04. 检查平衡性{@link #isBalanced}
  *  面试题55 - I  二叉树的深度 {@link #maxDepth}
  *  94.二叉树的中序遍历{@link #inorderTraversal}
+ *  98. 验证二叉搜索树 {@link #isValidBST}
  *  100. 相同的树 {@link #isSameTree}
  *  101. 对称二叉树 {@link #isSymmetric}
  *  102. 二叉树的层序遍历{@link #levelOrder}
@@ -25,6 +26,8 @@ import java.util.*;
  *  559. N 叉树的最大深度{@link #maxDepthN}
  *  589. N 叉树的前序遍历{@link #preorder}
  *   590.N叉树的后续遍历{@link #postorder}
+ *   700. 二叉搜索树中的搜索 {@link #searchBST}
+ *   701. 二叉搜索树中的插入操作 {@link #insertIntoBST}
  *   1302. 层数最深叶子节点的和 {@link #deepestLeavesSum}
  *   1379.找出克隆二叉树中的相同节点{@link #getTargetCopy}
  *
@@ -40,7 +43,7 @@ public class TreeProblemSet {
      * @param root 二叉树根节点
      * @return 是否平衡
      */
-    public boolean isBalanced(TreeNode root) {
+    public boolean isBalanced(TreeNode<Integer> root) {
         return (root == null) || (isBalanced(root.left) && isBalanced(root.right) && Math.abs(maxDepth(root.left) - maxDepth(root.right)) <= 1);
     }
 
@@ -49,7 +52,7 @@ public class TreeProblemSet {
      * @param root 二叉树根节点
      * @return 深度
      */
-    public int maxDepth(TreeNode root) {
+    public int maxDepth(TreeNode<Integer> root) {
         return root == null ? 0 : Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
     }
 
@@ -80,6 +83,24 @@ public class TreeProblemSet {
             }
         }
         return list;
+    }
+
+    /**
+     * 98. 验证二叉搜索树
+     * @param root 根节点
+     * @return 是否合法
+     */
+    public boolean isValidBST(TreeNode<Integer> root) {
+        return isValidBSTHelper(root, Long.MIN_VALUE, Long.MAX_VALUE);
+    }
+
+    private boolean isValidBSTHelper(TreeNode<Integer> root, long min, long max) {
+        if (root == null) return true;
+        if (min >= root.val || max <= root.val) {
+            return false;
+        }
+        return isValidBSTHelper(root.left, min, root.val)
+                && isValidBSTHelper(root.right, root.val, max);
     }
 
     /**
@@ -117,7 +138,7 @@ public class TreeProblemSet {
         while (!queue.isEmpty()) {
             TreeNode<Integer> n1 = queue.poll();
             TreeNode<Integer> n2 = queue.poll();
-            if (n1 == null && n2 == null) continue;;
+            if (n1 == null && n2 == null) continue;
             if (n1 == null || n2 == null) return false;
             if (!n1.val.equals(n2.val)) return false;
             queue.offer(n1.left);
@@ -151,7 +172,7 @@ public class TreeProblemSet {
             return false;
         }
         //n1,n2不为null,对称需要其根节点相等并且左右子树镜像对称
-        return (n1.val == n2.val)
+        return (n1.val.equals(n2.val))
                 && isSymmetricDfs(n1.left, n2.right)
                 && isSymmetricDfs(n1.right, n2.left);
     }
@@ -168,7 +189,7 @@ public class TreeProblemSet {
             TreeNode<Integer> q = queue.poll();
             if (p == null && q == null) continue;
             if (p == null || q == null) return false;
-            if (p.val != q.val) return false;
+            if (!p.val.equals(q.val)) return false;
             //交叉入队
             queue.add(p.left);
             queue.add(q.right);
@@ -319,7 +340,7 @@ public class TreeProblemSet {
                         queue.offer(node.left);
                     }
                     if (node.right != null) {
-                        queue.offer(node.right)
+                        queue.offer(node.right);
                     }
                 }
                 mindepth++;
@@ -400,7 +421,7 @@ public class TreeProblemSet {
     private void treeNodeTraversal(List<Integer> list, TreeNode<Integer> root, int flag){
         if (root == null) {
             return;
-        };
+        }
         switch (flag) {
             case 0:
                 list.add(root.val);
@@ -558,7 +579,6 @@ public class TreeProblemSet {
      * @param root 根节点
      * @return 遍历数组
      */
-    List<Integer> result = new ArrayList<>();
     public List<Integer> postorder(Node<Integer> root) {
         return postorderRecurize(root, new ArrayList<>());
     }
@@ -621,6 +641,56 @@ public class TreeProblemSet {
     }
 
     /**
+     * 700. 二叉搜索树中的搜索
+     * @param root 根节点
+     * @param val 目标值
+     * @return 目标节点
+     */
+    public TreeNode<Integer> searchBST(TreeNode<Integer> root, int target) {
+        if (root == null) return null;
+        if (root.val == target) {
+            return root;
+        } else if (root.val < target) {
+            return searchBST(root.right, target);
+        } else if (root.val > target) {
+            return searchBST(root.left, target);
+        }
+        return null;
+    }
+
+    /**
+     * 701. 二叉搜索树中的插入操作
+     * @param root 根节点
+     * @param val 插入节点值
+     * @return 插入后的根节点
+     */
+    public TreeNode<Integer> insertIntoBST(TreeNode<Integer> root, int val) {
+        if (root == null) return new TreeNode<>(val);
+        if (root.val < val) {
+            root.right =  insertIntoBST(root.right, val);
+        } else if (root.val > val) {
+            root.left =  insertIntoBST(root.left, val);
+        }
+        return root;
+    }
+
+    /**
+     * 迭代方式
+     */
+    private TreeNode<Integer> searchBSTIterator(TreeNode<Integer> root, int target) {
+        while (root != null) {
+            if (root.val == target) {
+                return root;
+            } else if (root.val > target) {
+                root = root.left;
+            } else if (root.val < target) {
+                root = root.right;
+            }
+        }
+        return null;
+    }
+
+    /**
      * 1302. 层数最深叶子节点的和
      * @param root 根节点
      * @return 最深叶子节点的和
@@ -659,7 +729,7 @@ public class TreeProblemSet {
      * @return 克隆树目标节点
      *  两个树同时进行遍历，对地址进行比较
      */
-    public final TreeNode getTargetCopy(final TreeNode original, final TreeNode cloned, final TreeNode target) {
+    public final TreeNode<Integer> getTargetCopy(final TreeNode<Integer> original, final TreeNode<Integer> cloned, final TreeNode<Integer> target) {
         //由于两棵树相同，只判断一个即可
         if (original == null) {
             return null;
@@ -669,7 +739,7 @@ public class TreeProblemSet {
             return cloned;
         }
         //递归遍历左子节点
-        TreeNode node = getTargetCopy(original.left, cloned.left, target);
+        TreeNode<Integer> node = getTargetCopy(original.left, cloned.left, target);
         if (node != null) {
             return node;
         }
