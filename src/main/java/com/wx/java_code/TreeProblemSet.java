@@ -23,6 +23,7 @@ import java.util.*;
  *  144. 二叉树的前序遍历{@link #preorderTraversal}
  *  145. 二叉树的后序遍历{@link #postorderTraversal}
  *  429. N 叉树的层序遍历{@link #levelOrder}
+ *  450. 删除二叉搜索树中的节点 {@link #deleteBSTNode}
  *  559. N 叉树的最大深度{@link #maxDepthN}
  *  589. N 叉树的前序遍历{@link #preorder}
  *   590.N叉树的后续遍历{@link #postorder}
@@ -487,6 +488,57 @@ public class TreeProblemSet {
            }
         }
         return result;
+    }
+
+    /**
+     * 450. 删除二叉搜索树中的节点
+     * @param root 根节点
+     * @param key 待删除节点值
+     * @return 删除后BST根节点
+     */
+    public TreeNode<Integer> deleteBSTNode(TreeNode<Integer> root, int key) {
+        if (root == null) return null;
+        if (root.val == key) {
+            //找到待删除节点
+            if (root.left == null) {
+                //左节点为空，使用右节点替换
+                return root.right;
+            }
+            if (root.right == null) {
+                //右节点为空，使用左节点替换
+                return root.left;
+            }
+            //两个子节点都不为空，需要删除后保持二叉搜索树有效
+            //可以找到左子树中的最大值来替换当前值
+            TreeNode<Integer> maxNode = findMaxNodeFromLeft(root.left);
+            root.val = maxNode.val;
+            root.left = deleteBSTNode(root.left, maxNode.val);
+            //也可以找到右子树中的最小值来替换当前值
+            TreeNode<Integer> minNode = findMinNodeFromRight(root.right);
+            root.val = minNode.val;
+            root.right = deleteBSTNode(root.right, minNode.val);
+        } else if (root.val > key) {
+            root.left = deleteBSTNode(root.left, key);
+        } else if (root.val < key) {
+            root.right = deleteBSTNode(root.right, key);
+        }
+        return root;
+    }
+
+    private TreeNode<Integer> findMaxNodeFromLeft(TreeNode<Integer> node) {
+        //左子树中最大的就是最右边的节点
+        while (node.right != null) {
+            node = node.right;
+        }
+        return node;
+    }
+
+    private TreeNode<Integer> findMinNodeFromRight(TreeNode<Integer> node) {
+        //右子树中最小的就是最左边的节点
+        while (node.left != null) {
+            node = node.left;
+        }
+        return node;
     }
 
     /**
