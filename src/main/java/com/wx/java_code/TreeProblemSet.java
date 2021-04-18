@@ -17,6 +17,7 @@ import java.util.*;
  *  100. 相同的树 {@link #isSameTree}
  *  101. 对称二叉树 {@link #isSymmetric}
  *  102. 二叉树的层序遍历{@link #levelOrder}
+ *  105. 从前序与中序遍历序列构造二叉树 {@link #buildTree}
  *  107. 二叉树的层序遍历 II {@link #levelOrderBottom}
  *  108. 将有序数组转换为二叉搜索树 {@link #sortedArrayToBST}
  *  111. 二叉树的最小深度 {@link #minDepth}
@@ -248,6 +249,50 @@ public class TreeProblemSet {
         if (node.right != null) {
             levelOrderDfs(level + 1, node.right, lists);
         }
+    }
+
+    /**
+     * 105. 从前序与中序遍历序列构造二叉树
+     * @param preorder 前序遍历序列
+     * @param inorder 中序遍历序列
+     * @return 二叉树根节点
+     */
+    public TreeNode<Integer> buildTree(int[] preorder, int[] inorder) {
+        if (preorder == null || inorder == null
+                || preorder.length != inorder.length) {
+            return null;
+        }
+        //将中序遍历序列中值与索引的关系保存到列表中，方便进行查找
+        Map<Integer, Integer> map = new HashMap<>(inorder.length);
+        for (int i = 0; i < inorder.length; i++) {
+            map.put(inorder[i], i);
+        }
+        return buildTreeDfs(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1, map);
+    }
+
+    /**
+     * 从前序与中序遍历序列构造二叉树递归辅助方法
+     * @param preorder 前序遍历序列
+     * @param preLeft 前序遍历序列子区间的左边界
+     * @param preRight 前序遍历序列子区间的有边界
+     * @param inorder 中序遍历序列
+     * @param inLeft 中序遍历序列子区间的左边界
+     * @param inRight 中序遍历序列子区间的有边界
+     * @param map 中序值索引列表《中序节点值， 中序节点索引》
+     */
+    private TreeNode<Integer> buildTreeDfs(int[] preorder, int preLeft, int preRight, int[] inorder, int inLeft, int inRight, Map<Integer, Integer> map) {
+        if (preLeft > preRight || inLeft > inRight) {
+            return null;
+        }
+        //前序遍历的第一个值为根节点的值
+        int rootVal = preorder[preLeft];
+        TreeNode<Integer> root = new TreeNode<>(rootVal);
+        //获取中序遍历序列中根节点的索引
+        int index = map.get(rootVal);
+        //根据根节点在前序和中序遍历序列中的位置，递归构建左右子树
+        root.left = buildTreeDfs(preorder, preLeft + 1, index - inLeft + preLeft, inorder, inLeft, index - 1, map);
+        root.right = buildTreeDfs(preorder, index - inLeft + preLeft + 1, preRight, inorder, index + 1, inRight, map);
+        return root;
     }
 
     /**
