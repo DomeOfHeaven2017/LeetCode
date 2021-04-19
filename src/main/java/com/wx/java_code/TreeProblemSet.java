@@ -17,7 +17,8 @@ import java.util.*;
  *  100. 相同的树 {@link #isSameTree}
  *  101. 对称二叉树 {@link #isSymmetric}
  *  102. 二叉树的层序遍历{@link #levelOrder}
- *  105. 从前序与中序遍历序列构造二叉树 {@link #buildTree}
+ *  105. 从前序与中序遍历序列构造二叉树 {@link #buildTreeFromPreAndIn}
+ *  106. 从中序与后序遍历序列构造二叉树 {@link #buildTreeFromInAndPost}
  *  107. 二叉树的层序遍历 II {@link #levelOrderBottom}
  *  108. 将有序数组转换为二叉搜索树 {@link #sortedArrayToBST}
  *  111. 二叉树的最小深度 {@link #minDepth}
@@ -257,7 +258,7 @@ public class TreeProblemSet {
      * @param inorder 中序遍历序列
      * @return 二叉树根节点
      */
-    public TreeNode<Integer> buildTree(int[] preorder, int[] inorder) {
+    public TreeNode<Integer> buildTreeFromPreAndIn(int[] preorder, int[] inorder) {
         if (preorder == null || inorder == null
                 || preorder.length != inorder.length) {
             return null;
@@ -267,7 +268,7 @@ public class TreeProblemSet {
         for (int i = 0; i < inorder.length; i++) {
             map.put(inorder[i], i);
         }
-        return buildTreeDfs(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1, map);
+        return buildTreeFromPreAndInDfs(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1, map);
     }
 
     /**
@@ -280,7 +281,7 @@ public class TreeProblemSet {
      * @param inRight 中序遍历序列子区间的有边界
      * @param map 中序值索引列表《中序节点值， 中序节点索引》
      */
-    private TreeNode<Integer> buildTreeDfs(int[] preorder, int preLeft, int preRight, int[] inorder, int inLeft, int inRight, Map<Integer, Integer> map) {
+    private TreeNode<Integer> buildTreeFromPreAndInDfs(int[] preorder, int preLeft, int preRight, int[] inorder, int inLeft, int inRight, Map<Integer, Integer> map) {
         if (preLeft > preRight || inLeft > inRight) {
             return null;
         }
@@ -290,8 +291,49 @@ public class TreeProblemSet {
         //获取中序遍历序列中根节点的索引
         int index = map.get(rootVal);
         //根据根节点在前序和中序遍历序列中的位置，递归构建左右子树
-        root.left = buildTreeDfs(preorder, preLeft + 1, index - inLeft + preLeft, inorder, inLeft, index - 1, map);
-        root.right = buildTreeDfs(preorder, index - inLeft + preLeft + 1, preRight, inorder, index + 1, inRight, map);
+        root.left = buildTreeFromPreAndInDfs(preorder, preLeft + 1, index - inLeft + preLeft, inorder, inLeft, index - 1, map);
+        root.right = buildTreeFromPreAndInDfs(preorder, index - inLeft + preLeft + 1, preRight, inorder, index + 1, inRight, map);
+        return root;
+    }
+
+    /**
+     * 106. 从中序与后序遍历序列构造二叉树
+     * @param inorder 中序遍历序列
+     * @param postorder 后序遍历序列
+     * @return 二叉树根节点
+     */
+    public TreeNode<Integer> buildTreeFromInAndPost(int[] inorder, int[] postorder) {
+        if (inorder == null || postorder == null || inorder.length != postorder.length) {
+            return null;
+        }
+        Map<Integer, Integer> map = new HashMap<>(inorder.length);
+        for (int i = 0; i < inorder.length; i++) {
+            map.put(inorder[i], i);
+        }
+        return buildTreeFromInAndPostDfs(inorder, 0, inorder.length - 1, postorder, 0, postorder.length - 1, map);
+    }
+
+    /**
+     * 从中序与后序遍历序列构造二叉树递归辅助方法
+     * @param inorder 前序遍历序列
+     * @param inLeft 前序遍历序列子区间的左边界
+     * @param inRight 前序遍历序列子区间的有边界
+     * @param postorder 中序遍历序列
+     * @param postLeft 中序遍历序列子区间的左边界
+     * @param postRight 中序遍历序列子区间的有边界
+     * @param map 中序值索引列表《中序节点值， 中序节点索引》
+     */
+    private TreeNode<Integer> buildTreeFromInAndPostDfs(int[] inorder, int inLeft, int inRight, int[] postorder, int postLeft, int postRight, Map<Integer, Integer> map) {
+        if (inLeft > inRight || postLeft > postRight) {
+            return null;
+        }
+        //后序遍历的最后一个值为根节点值
+        int val = postorder[postRight];
+        TreeNode<Integer> root = new TreeNode<>(val);
+        int index = map.get(val);
+        //根据根节点在中序和后序遍历序列中的位置，递归构建左右子树
+        root.left = buildTreeFromInAndPostDfs(inorder, inLeft, index - 1, postorder, postLeft, index - 1 - inLeft + postLeft, map);
+        root.right = buildTreeFromInAndPostDfs(inorder, index + 1, inRight, postorder, index - inLeft + postLeft, postRight - 1, map);
         return root;
     }
 
