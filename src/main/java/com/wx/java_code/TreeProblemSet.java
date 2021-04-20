@@ -17,6 +17,7 @@ import java.util.*;
  *  100. 相同的树 {@link #isSameTree}
  *  101. 对称二叉树 {@link #isSymmetric}
  *  102. 二叉树的层序遍历{@link #levelOrder}
+ *  103. 二叉树的锯齿形层序遍历 {@link #zigzagLevelOrder}
  *  105. 从前序与中序遍历序列构造二叉树 {@link #buildTreeFromPreAndIn}
  *  106. 从中序与后序遍历序列构造二叉树 {@link #buildTreeFromInAndPost}
  *  107. 二叉树的层序遍历 II {@link #levelOrderBottom}
@@ -235,21 +236,46 @@ public class TreeProblemSet {
         }
 
         //递归方式
-        levelOrderDfs(1, root, result);
+        levelOrderDfs(1, root, result, false);
         return result;
     }
 
-    private void levelOrderDfs(int level, TreeNode<Integer> node, List<List<Integer>> lists) {
+    /**
+     * 二叉树层序遍历递归方式
+     * @param level 层级
+     * @param node 节点
+     * @param lists 结果集
+     * @param isZigzag 是否是锯齿遍历，兼容103题
+     */
+    private void levelOrderDfs(int level, TreeNode<Integer> node, List<List<Integer>> lists, boolean isZigzag) {
         if (lists.size() < level) {
             lists.add(new ArrayList<>());
         }
-        lists.get(level - 1).add(node.val);
+        if (isZigzag && level % 2 == 0) {
+            lists.get(level - 1).add(0, node.val);
+        } else {
+            lists.get(level - 1).add(node.val);
+        }
         if (node.left != null) {
-            levelOrderDfs(level + 1, node.left, lists);
+            levelOrderDfs(level + 1, node.left, lists, isZigzag);
         }
         if (node.right != null) {
-            levelOrderDfs(level + 1, node.right, lists);
+            levelOrderDfs(level + 1, node.right, lists, isZigzag);
         }
+    }
+
+    /**
+     * 103. 二叉树的锯齿形层序遍历
+     * @param root 根节点
+     * @return 锯齿排列
+     */
+    public List<List<Integer>> zigzagLevelOrder(TreeNode<Integer> root) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (root == null) {
+            return result;
+        }
+        levelOrderDfs(1, root, result, true);
+        return root;
     }
 
     /**
