@@ -23,6 +23,7 @@ import java.util.*;
  *  107. 二叉树的层序遍历 II {@link #levelOrderBottom}
  *  108. 将有序数组转换为二叉搜索树 {@link #sortedArrayToBST}
  *  111. 二叉树的最小深度 {@link #minDepth}
+ *  112. 路径总和 {@link #hasPathSum}
  *  144. 二叉树的前序遍历{@link #preorderTraversal}
  *  145. 二叉树的后序遍历{@link #postorderTraversal}
  *  429. N 叉树的层序遍历{@link #levelOrder}
@@ -461,6 +462,30 @@ public class TreeProblemSet {
             }
         }
         return mindepth;
+    }
+
+    /**
+     * 112. 路径总和
+     * @param root 根节点
+     * @param targetSum 目标路径和
+     * @return 是否满足要求
+     */
+    public boolean hasPathSum(TreeNode<Integer> root, int targetSum) {
+        return hasPathSumDfs(root, targetSum);
+    }
+
+    /**
+     * 路径总和递归解法
+     */
+    private boolean hasPathSumDfs(TreeNode<Integer> root, int targetSum) {
+        if (root == null) {
+            return false;
+        }
+        if (root.left == null && root.right == null) {
+            return targetSum == root.val;
+        }
+        return hasPathSumDfs(root.left, targetSum - root.val.intValue())
+                || hasPathSumDfs(root.right, targetSum - root.val.intValue());
     }
 
     /**
