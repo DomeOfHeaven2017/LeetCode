@@ -24,6 +24,7 @@ import java.util.*;
  *  108. 将有序数组转换为二叉搜索树 {@link #sortedArrayToBST}
  *  111. 二叉树的最小深度 {@link #minDepth}
  *  112. 路径总和 {@link #hasPathSum}
+ *  113. 路径总和 II {@link #pathSum}
  *  144. 二叉树的前序遍历{@link #preorderTraversal}
  *  145. 二叉树的后序遍历{@link #postorderTraversal}
  *  429. N 叉树的层序遍历{@link #levelOrder}
@@ -484,8 +485,38 @@ public class TreeProblemSet {
         if (root.left == null && root.right == null) {
             return targetSum == root.val;
         }
-        return hasPathSumDfs(root.left, targetSum - root.val.intValue())
-                || hasPathSumDfs(root.right, targetSum - root.val.intValue());
+        return hasPathSumDfs(root.left, targetSum - root.val)
+                || hasPathSumDfs(root.right, targetSum - root.val);
+    }
+
+    /**
+     * 113. 路径总和 II
+     * @param root 根节点
+     * @param targetSum 目标路径和
+     * @return 满足要求的序列
+     */
+    public List<List<Integer>> pathSum(TreeNode<Integer> root, int targetSum) {
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
+        return pathSumDfs(root, targetSum, result, list);
+    }
+
+    /**
+     * 深度优先搜索，回溯算法
+     */
+    private List<List<Integer>> pathSumDfs(TreeNode<Integer> root, int target, List<List<Integer>> result, List<Integer> list) {
+        if (root == null) {
+            return result;
+        }
+        list.add(root.val);
+        target -= root.val;
+        if (root.left == null && root.right == null && target == 0) {
+            result.add(new ArrayList<>(list));
+        }
+        pathSumDfs(root.left, target, result, list);
+        pathSumDfs(root.right, target, result, list);
+        list.remove(list.size() - 1);
+        return result;
     }
 
     /**
