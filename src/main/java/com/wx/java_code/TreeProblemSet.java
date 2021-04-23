@@ -27,6 +27,8 @@ import java.util.*;
  *  113. 路径总和 II {@link #pathSum}
  *  144. 二叉树的前序遍历{@link #preorderTraversal}
  *  145. 二叉树的后序遍历{@link #postorderTraversal}
+ *  226. 翻转二叉树 {@link #invertTree}
+ *  230. 二叉搜索树中第K小的元素 {@link #}
  *  429. N 叉树的层序遍历{@link #levelOrder}
  *  450. 删除二叉搜索树中的节点 {@link #deleteBSTNode}
  *  559. N 叉树的最大深度{@link #maxDepthN}
@@ -609,6 +611,22 @@ public class TreeProblemSet {
                 list.add(root.val);
                 break;
         }
+    }
+
+    /**
+     * 226. 翻转二叉树
+     * @param root 根节点
+     * @return 翻转后的根节点
+     */
+    public TreeNode<Integer> invertTree(TreeNode<Integer> root) {
+        if (root == null) {
+            return null;
+        }
+        TreeNode<Integer> left = invertTree(root.left);
+        TreeNode<Integer> right = invertTree(root.right);
+        root.left = right;
+        root.right = left;
+        return root;
     }
 
     /**
