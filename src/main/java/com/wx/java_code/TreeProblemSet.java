@@ -209,6 +209,36 @@ public class TreeProblemSet {
     }
 
     /**
+     * 230. 二叉搜索树中第K小的元素
+     * @param root 根节点
+     * @param k 第k小
+     * @return 第k小的元素
+     */
+    int kthCount = 0;
+    int kthAns = -1;
+    public int kthSmallest(TreeNode<Integer> root, int k) {
+        kthSmallestDfs(root, k);
+        return result;
+    }
+
+    /**
+     * 二叉搜索树中第k小元素递归解法
+     * 因为二叉搜索树的中序遍历即为排序序列，所以第k小即为中序遍历序列的第k个值
+     */
+    private void kthSmallestDfs(TreeNode<Integer> root, int k) {
+        if (root == null) {
+            return;
+        }
+        kthSmallestDfs(root.left, k);
+        kthCount ++;
+        if (kthCount == k) {
+            kthAns = root.val;
+            return;
+        }
+        kthSmallestDfs(root.right, k);
+    }
+
+    /**
      * 102. 二叉树的层序遍历
      * @param root 二叉树根节点
      * @return 层序遍历集合
