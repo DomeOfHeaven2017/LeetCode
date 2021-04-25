@@ -34,6 +34,7 @@ import java.util.*;
  *  559. N 叉树的最大深度{@link #maxDepthN}
  *  589. N 叉树的前序遍历{@link #preorder}
  *   590.N叉树的后续遍历{@link #postorder}
+ *   654. 最大二叉树 {@link #constructMaximumBinaryTree}
  *   700. 二叉搜索树中的搜索 {@link #searchBST}
  *   701. 二叉搜索树中的插入操作 {@link #insertIntoBST}
  *   1302. 层数最深叶子节点的和 {@link #deepestLeavesSum}
@@ -907,6 +908,39 @@ public class TreeProblemSet {
             }
         }
         return result;
+    }
+
+    /**
+     * 654. 最大二叉树
+     * @param nums 无序数组
+     * @return 最大二叉树根节点
+     */
+    public TreeNode constructMaximumBinaryTree(int[] nums) {
+        return constructMaxBtHelper(nums, 0, nums.length - 1);
+    }
+
+    /**
+     * 最大二叉树递归解法
+     * @param nums 源数组
+     * @param start 左边界
+     * @param end 右边界
+     */
+    private TreeNode<Integer> constructMaxBtHelper(int[] nums, int start, int end) {
+        if (start > end) return null;
+        //找数组中的最大值的索引
+        int index = start;
+        for (int i = start + 1; i <= end; i ++) {
+            if (nums[i] > nums[index]) {
+                index = i;
+            }
+        }
+        //根据最大值构建父节点
+        TreeNode<Integer> node = new TreeNode<>(nums[index]);
+        //根据左边序列递归构建左子节点
+        node.left = constructMaxBtHelper(nums, start, index - 1);
+        //根据右边序列递归构建右子节点
+        node.right = constructMaxBtHelper(nums, index + 1, end);
+        return node;
     }
 
     /**
