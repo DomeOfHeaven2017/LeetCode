@@ -28,7 +28,8 @@ import java.util.*;
  *  144. 二叉树的前序遍历{@link #preorderTraversal}
  *  145. 二叉树的后序遍历{@link #postorderTraversal}
  *  226. 翻转二叉树 {@link #invertTree}
- *  230. 二叉搜索树中第K小的元素 {@link #}
+ *  230. 二叉搜索树中第K小的元素 {@link #kthSmallest}
+ *  257. 二叉树的所有路径 {@link #binaryTreePaths}
  *  429. N 叉树的层序遍历{@link #levelOrder}
  *  450. 删除二叉搜索树中的节点 {@link #deleteBSTNode}
  *  559. N 叉树的最大深度{@link #maxDepthN}
@@ -237,6 +238,31 @@ public class TreeProblemSet {
             return;
         }
         kthSmallestDfs(root.right, k);
+    }
+
+    /**
+     * 257. 二叉树的所有路径
+     * @param root 根节点
+     * @return 路径序列字符串
+     */
+    public List<String> binaryTreePaths(TreeNode<Integer> root) {
+        List<String> result = new ArrayList<>();
+        binaryTreePathsDfs(root, result, "");
+        return result;
+    }
+
+    private void binaryTreePathsDfs(TreeNode<Integer> root, List<String> result, String str) {
+        if (root != null) {
+            StringBuilder builder = new StringBuilder(str);
+            builder.append(root.val);
+            if (root.left == null && root.right == null) {
+                result.add(builder.toString());
+            } else {
+                builder.append("->");
+                binaryTreePathsDfs(root.left, result, builder.toString());
+                binaryTreePathsDfs(root.right, result, builder.toString());
+            }
+        }
     }
 
     /**
