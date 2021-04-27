@@ -30,7 +30,8 @@ import java.util.*;
  *  226. 翻转二叉树 {@link #invertTree}
  *  230. 二叉搜索树中第K小的元素 {@link #kthSmallest}
  *  257. 二叉树的所有路径 {@link #binaryTreePaths}
- *  429. N 叉树的层序遍历{@link #levelOrder}
+ *  404. 左叶子之和 {@link #sumOfLeftLeaves}
+ *  429. N 叉树的层序遍历{@link #levelOrderN}
  *  450. 删除二叉搜索树中的节点 {@link #deleteBSTNode}
  *  559. N 叉树的最大深度{@link #maxDepthN}
  *  589. N 叉树的前序遍历{@link #preorder}
@@ -684,6 +685,28 @@ public class TreeProblemSet {
         root.left = right;
         root.right = left;
         return root;
+    }
+
+    /**
+     * 404. 左叶子之和
+     * @param root 根节点
+     * @return  左叶子节点之和
+     */
+    private int sumOfLeftLeaves = 0;
+    public int sumOfLeftLeaves(TreeNode<Integer> root) {
+         sumOfLeftLeavesDfs(root, false);
+         return sumOfLeftLeaves;
+    }
+
+    private void sumOfLeftLeavesDfs(TreeNode<Integer> root, boolean isLeft) {
+        if (root == null) {
+            return ;
+        }
+        if (isLeft && root.left == null && root.right == null) {
+            sumOfLeftLeaves += root.val;
+        }
+        sumOfLeftLeavesDfs(root.left, true);
+        sumOfLeftLeavesDfs(root.right, false);
     }
 
     /**
