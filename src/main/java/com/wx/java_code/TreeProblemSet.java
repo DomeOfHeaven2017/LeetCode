@@ -36,6 +36,7 @@ import java.util.*;
  *  559. N 叉树的最大深度{@link #maxDepthN}
  *  589. N 叉树的前序遍历{@link #preorder}
  *   590.N叉树的后续遍历{@link #postorder}
+ *   617. 合并二叉树 {@link #mergeTrees}
  *   654. 最大二叉树 {@link #constructMaximumBinaryTree}
  *   700. 二叉搜索树中的搜索 {@link #searchBST}
  *   701. 二叉搜索树中的插入操作 {@link #insertIntoBST}
@@ -957,6 +958,23 @@ public class TreeProblemSet {
             }
         }
         return result;
+    }
+
+    /**
+     * 617. 合并二叉树
+     * @return 合并后的二叉树
+     */
+    public TreeNode<Integer> mergeTrees(TreeNode<Integer> root1, TreeNode<Integer> root2) {
+        if (root1 == null) {
+            return root2;
+        }
+        if (root2 == null) {
+            return root1;
+        }
+        TreeNode<Integer> root = new TreeNode<>(root1.val + root2.val);
+        root.left = mergeTrees(root1.left, root2.left);
+        root.right = mergeTrees(root1.right, root2.right);
+        return root;
     }
 
     /**
