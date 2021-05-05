@@ -29,6 +29,7 @@ import java.util.*;
  *  145. 二叉树的后序遍历{@link #postorderTraversal}
  *  226. 翻转二叉树 {@link #invertTree}
  *  230. 二叉搜索树中第K小的元素 {@link #kthSmallest}
+ *  235. 二叉搜索树的最近公共祖先 {@link #lowestCommonAncestor}
  *  257. 二叉树的所有路径 {@link #binaryTreePaths}
  *  404. 左叶子之和 {@link #sumOfLeftLeaves}
  *  429. N 叉树的层序遍历{@link #levelOrderN}
@@ -222,7 +223,7 @@ public class TreeProblemSet {
     int kthAns = -1;
     public int kthSmallest(TreeNode<Integer> root, int k) {
         kthSmallestDfs(root, k);
-        return result;
+        return kthAns;
     }
 
     /**
@@ -240,6 +241,26 @@ public class TreeProblemSet {
             return;
         }
         kthSmallestDfs(root.right, k);
+    }
+
+    /**
+     * 235. 二叉搜索树的最近公共祖先
+     * @param root 根节点
+     * @param p 节点p
+     * @param q 节点q
+     * @return p,q的节点的最近公共祖先
+     */
+    public TreeNode lowestCommonAncestor(TreeNode<Integer> root, TreeNode<Integer> p, TreeNode<Integer> q) {
+        if (root == null) {
+            return null;
+        }
+        if (p.val > root.val && q.val > root.val) {
+            return lowestCommonAncestor(root.right, p, q);
+        }
+        if (p.val < root.val && q.val < root.val) {
+            return lowestCommonAncestor(root.left, p, q);
+        }
+        return root;
     }
 
     /**
@@ -338,7 +359,7 @@ public class TreeProblemSet {
             return result;
         }
         levelOrderDfs(1, root, result, true);
-        return root;
+        return result;
     }
 
     /**
@@ -1013,7 +1034,7 @@ public class TreeProblemSet {
     /**
      * 700. 二叉搜索树中的搜索
      * @param root 根节点
-     * @param val 目标值
+     * @param target 目标值
      * @return 目标节点
      */
     public TreeNode<Integer> searchBST(TreeNode<Integer> root, int target) {
