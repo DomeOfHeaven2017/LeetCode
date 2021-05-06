@@ -10,6 +10,7 @@ import java.util.*;
  * Created by wx on 19-3-11
  * Description:leetcode简单问题记录:Java代码
  * 问题编号:1,7
+ * 1720. 解码异或后的数组 {@link #decode}
  **/
 
 public class EasyProblemSet1 {
@@ -526,6 +527,21 @@ public class EasyProblemSet1 {
             head = head.next;
         }
         return Integer.parseInt(sb.toString(),2);
+    }
+
+    /**
+     * 1720. 解码异或后的数组
+     * @param encoded 编码后的数组
+     * @param first 源数组第一个元素
+     * @return 解码后的数组
+     */
+    public int[] decode(int[] encoded, int first) {
+        int[] result = new int[encoded.length + 1];
+        result[0] = first;
+        for (int i = 1; i <= encoded.length; i++) {
+            result[i] = encoded[i - 1] ^ result[i - 1];
+        }
+        return result;
     }
 
 
