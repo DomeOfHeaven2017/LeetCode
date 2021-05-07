@@ -10,6 +10,7 @@ import java.util.*;
  * Created by wx on 19-3-11
  * Description:leetcode简单问题记录:Java代码
  * 问题编号:1,7
+ * 1486. 数组异或操作 {@link #xorOperation}
  * 1720. 解码异或后的数组 {@link #decode}
  **/
 
@@ -527,6 +528,20 @@ public class EasyProblemSet1 {
             head = head.next;
         }
         return Integer.parseInt(sb.toString(),2);
+    }
+
+    /**
+     * 1486. 数组异或操作
+     * @param n 数组长度
+     * @param start 起始值
+     * @return 数组元素异或值
+     */
+    public int xorOperation(int n, int start) {
+        int result = start;
+        for (int i = 1; i < n; i ++) {
+            result ^= start + 2 * i;
+        }
+        return result;
     }
 
     /**
