@@ -8,16 +8,17 @@ import java.util.Arrays;
 /**
  * Created by wx on 20-6-7
  * Description: LeetCode 数组相关问题集合
- * 14. 最长公共前缀 ${@link #longestCommonPrefix}
- * 26.删除排序数组中的重复项 ${@link #removeDuplicates}
- * 27. 移除元素 ${@link #removeElement}
- * 189. 旋转数组 ${@link #rotate}
- * 283. 移动零  ${@link #moveZeroes}
- *  350. 两个数组的交集II ${@link #intersect}
- * 461. 汉明距离 ${@link #hammingDistance}
- * 867. 转置矩阵${@link #transpose}
- * 1109.航班预订统计${@link #corpFlightBookings}
- * 1470.重新排列数组 ${@link #shuffle}
+ * 14. 最长公共前缀 {@link #longestCommonPrefix}
+ * 26.删除排序数组中的重复项 {@link #removeDuplicates}
+ * 27. 移除元素 {@link #removeElement}
+ * 189. 旋转数组 {@link #rotate}
+ * 283. 移动零  {@link #moveZeroes}
+ *  350. 两个数组的交集II {@link #intersect}
+ * 461. 汉明距离 {@link #hammingDistance}
+ * 867. 转置矩阵 {@link #transpose}
+ * 1109.航班预订统计 {@link #corpFlightBookings}
+ * 1470.重新排列数组 {@link #shuffle}
+ * 1480. 一维数组的动态和 {@link #runningSum}
  */
 public class ArrayProblemSet {
 
@@ -198,6 +199,23 @@ public class ArrayProblemSet {
         for (int i = 0; i <  n; i ++) {
             result[i*2] = nums[i];
             result[i*2 + 1] = nums[n+i];
+        }
+        return result;
+    }
+
+    /**
+     * 1480. 一维数组的动态和
+     * @param nums 原数组
+     * @return 动态和
+     */
+    public int[] runningSum(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return nums;
+        }
+        int[] result = new int[nums.length];
+        result[0] = nums[0];
+        for (int i = 1 ; i < nums.length ; i++) {
+            result[i] = result[i - 1] + nums[i];
         }
         return result;
     }
