@@ -3,9 +3,7 @@ package com.wx.java_code.array;
 
 import com.wx.java_code.common.Difference;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by wx on 20-6-7
@@ -26,6 +24,7 @@ import java.util.Map;
  * 1109.航班预订统计 {@link #corpFlightBookings}
  * 1470.重新排列数组 {@link #shuffle}
  * 1480. 一维数组的动态和 {@link #runningSum}
+ * 1482. 制作 m 束花所需的最少天数 {@link #minDays}
  */
 public class ArrayProblemSet {
 
@@ -276,6 +275,59 @@ public class ArrayProblemSet {
             result[i] = result[i - 1] + nums[i];
         }
         return result;
+    }
+
+    /**
+     * 1482. 制作 m 束花所需的最少天数
+     * @param bloomDay 花开需要等待的时间
+     * @param m 需要制作的花束数量
+     * @param k 每束花需要的相邻花束数量
+     * @return 制作m束花需要的最少天数
+     */
+    public int minDays(int[] bloomDay, int m, int k) {
+        //需要的花束数量大于提供的花束数量，直接返回-1
+        if (bloomDay == null || m * k > bloomDay.length) {
+            return -1;
+        }
+        //求制作花束等待的最大时间
+        int min = 1, max = 0;
+        for (int i : bloomDay) {
+            max = Math.max(max, i);
+        }
+        //二分遍历最小天数到最大天数，获取满足所需的最小天数
+        while (min < max) {
+            int mid = min + (max - min) / 2;
+            if (checkMinDays(bloomDay, mid, m, k)) {
+                max = mid;
+            } else {
+                min = mid + 1;
+            }
+        }
+        return max;
+    }
+
+    /**
+     * 检查当前天数是否能制作出所需的花束数
+     * @param days 制作指定天数
+     */
+    private boolean checkMinDays(int[] bloomDay, int days, int m, int k) {
+        //flowers表示当前已经开花的花的数量，开花数量达到m时能制作一个花束
+        //sum表示当前已制作好的花束数量
+        int flowers = 0, sum = 0;
+        for (int i = 0; i < bloomDay.length && sum < m; i ++) {
+            if (bloomDay[i] <= days) {
+                flowers ++;
+                if (flowers == m)  {
+                    //制作成功一个花束，重置开花数量
+                    sum ++;
+                    flowers = 0;
+                }
+            } else {
+                flowers = 0;
+            }
+        }
+        //当前天数下制作的花束数量是否大于等于所需的花束数量
+        return sum >= m;
     }
 
 }
