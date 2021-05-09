@@ -1,8 +1,8 @@
 package com.wx.java_code;
 
 
-import com.wx.java_code.resource.ListNode;
-import com.wx.java_code.resource.TreeNode;
+import com.wx.java_code.common.ListNode;
+import com.wx.java_code.common.TreeNode;
 
 import java.util.*;
 

@@ -1,7 +1,7 @@
-package com.wx.java_code;
+package com.wx.java_code.tree;
 
-import com.wx.java_code.resource.Node;
-import com.wx.java_code.resource.TreeNode;
+import com.wx.java_code.common.Node;
+import com.wx.java_code.common.TreeNode;
 
 import java.util.*;
 
@@ -9,9 +9,11 @@ import java.util.*;
  * Created by wx on 20-6-7
  * Description: LeetCode 树相关问题集合
  * 问题列表：
- * 面试题 04.02. 最小高度树{@link #sortedArrayToBST}
+ * 面试题 04.02. 最小高度树{@link #minHeightTree}
  *  面试题 04.04. 检查平衡性{@link #isBalanced}
  *  面试题55 - I  二叉树的深度 {@link #maxDepth}
+ *
+ *
  *  94.二叉树的中序遍历{@link #inorderTraversal}
  *  98. 验证二叉搜索树 {@link #isValidBST}
  *  100. 相同的树 {@link #isSameTree}
@@ -45,10 +47,23 @@ import java.util.*;
  *   1379.找出克隆二叉树中的相同节点{@link #getTargetCopy}
  *
  **/
-public class TreeProblemSet {
+public class TreeProblems {
 
-    public static void main(String[] args) {
-
+    /**
+     * 面试题04.02 最小高度树
+     * @param nums 递增数组
+     * @return 树
+     */
+    public TreeNode<Integer> minHeightTree(int[] nums) {
+        if (nums == null || nums.length <= 0){
+            return null;
+        }
+        TreeNode<Integer> root = new TreeNode<>(nums[nums.length / 2]);
+        TreeNode<Integer> temp = root;
+        for (int i = 0 ; i < nums.length ; i ++) {
+            // TODO: 2021/5/9
+        }
+        return root;
     }
 
     /**

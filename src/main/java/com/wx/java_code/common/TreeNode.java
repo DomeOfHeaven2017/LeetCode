@@ -1,5 +1,8 @@
-package com.wx.java_code.resource;
+package com.wx.java_code.common;
 
+/**
+ * 二叉树节点
+ */
 public class TreeNode<T> {
     public T val;
     public TreeNode<T> left;

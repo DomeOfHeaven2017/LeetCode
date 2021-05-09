@@ -1,4 +1,4 @@
-package com.wx.java_code;
+package com.wx.java_code.dp;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,11 +8,7 @@ import java.util.Map;
  * @desc 动态规划问题集合
  *  322. 零钱兑换{@link #coinChange}
  */
-public class DPProblemSet {
-
-    public static void main(String[] args) {
-
-    }
+public class DPProblems {
 
     /**
      * 322. 零钱兑换

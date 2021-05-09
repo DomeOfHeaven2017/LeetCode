@@ -1,20 +1,13 @@
-package com.wx.java_code;
+package com.wx.java_code.uf;
 
-
-import com.wx.java_code.resource.UF;
+import com.wx.java_code.common.UF;
 
 /**
- * @Desc leetcode简单问题记录:Java代码
- * @Author wx
- * @Date 20-3-28
- **/
-public class MidProblemSet1 {
-
-    public static void main(String[] args) {
-
-        System.out.println();
-    }
-
+ * 并查集问题集合
+ * 面试题 547 朋友圈 {@link #findCircleNum}
+ * 面试题 200 岛屿数量 {@link #numIslands}
+ */
+public class UfProblems {
 
     /**
      * 面试题 547

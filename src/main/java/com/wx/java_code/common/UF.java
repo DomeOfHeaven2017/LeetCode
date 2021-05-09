@@ -1,9 +1,7 @@
-package com.wx.java_code.resource;
+package com.wx.java_code.common;
 
 /**
- * @Desc
- * @Author wx
- * @Date
+ * 并查集
  **/
 public class UF {
     int[] sites;

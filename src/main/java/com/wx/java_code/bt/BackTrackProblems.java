@@ -1,21 +1,17 @@
-package com.wx.java_code;
+package com.wx.java_code.bt;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by wx on 21-3-28
- * @desc 回溯算法问题集合
+ * @desc  回溯问题集合
  *  面试题 08.04. 幂集 {@link #subsets}
- *  51. N 皇后 & 面试题 08.12. 八皇后 {@link #solveNQueens}
- *  46. 全排列 {@link #permute}
+ *
+ * 46. 全排列 {@link #permute}
+ * 51. N 皇后 & 面试题 08.12. 八皇后 {@link #solveNQueens}
  */
-public class BackTrackProblemSet {
-
-    public static void main(String[] args) {
-
-    }
+public class BackTrackProblems {
 
     /**
      * 面试题 08.04. 幂集
@@ -27,11 +23,10 @@ public class BackTrackProblemSet {
         subsetsBackTrack(result, new ArrayList<>(), nums, 0);
         return result;
     }
-
     /**
      * 迭代解决方式
      */
-    public List<List<Integer>> subsetsIteration(int[] nums) {
+    private List<List<Integer>> subsetsIteration(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
         result.add(new ArrayList<>());
         for (int num : nums) {
@@ -56,7 +51,32 @@ public class BackTrackProblemSet {
             track.remove(track.size() - 1);
         }
     }
+    //*************************************************************************************************
+    /**
+     * 46. 全排列
+     * @param nums 排列元素数组
+     * @return 全排列结果
+     */
+    public static List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> result = new LinkedList<>();
+        List<Integer> track = new LinkedList<>();
+        permuteBackTrack(track, result, nums);
+        return result;
+    }
 
+    private static void  permuteBackTrack(List<Integer> track, List<List<Integer>> res, int[] nums) {
+        if (track.size() == nums.length) {
+            res.add(new LinkedList<>(track));
+            return;
+        }
+        for (int num : nums) {
+            if (track.contains(num)) continue;
+            track.add(num);
+            permuteBackTrack(track, res, nums);
+            track.remove(track.size() - 1);
+        }
+    }
+    //****************************************************************************************************
     /**
      * 51. N 皇后
      * 面试题 08.12. 八皇后
@@ -125,34 +145,5 @@ public class BackTrackProblemSet {
         }
         return true;
     }
-
-
-    /**
-     * 46. 全排列
-     * @param nums 排列元素数组
-     * @return 全排列结果
-     */
-    public static List<List<Integer>> permute(int[] nums) {
-        List<List<Integer>> result = new LinkedList<>();
-        List<Integer> track = new LinkedList<>();
-        permuteBackTrack(track, result, nums);
-        return result;
-    }
-
-    private static void  permuteBackTrack(List<Integer> track, List<List<Integer>> res, int[] nums) {
-        if (track.size() == nums.length) {
-            res.add(new LinkedList<>(track));
-            return;
-        }
-        for (int num : nums) {
-            if (track.contains(num)) continue;
-            track.add(num);
-            permuteBackTrack(track, res, nums);
-            track.remove(track.size() - 1);
-        }
-    }
-
-
-
-
+//********************************************************************************************************
 }

@@ -1,5 +1,8 @@
-package com.wx.java_code.resource;
+package com.wx.java_code.common;
 
+/**
+ * 差分数组
+ */
 public class Difference {
     private int[] diff;
     //根据数组构造差分数组

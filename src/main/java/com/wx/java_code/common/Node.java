@@ -1,7 +1,10 @@
-package com.wx.java_code.resource;
+package com.wx.java_code.common;
 
 import java.util.List;
 
+/**
+ * 树节点
+ */
 public class Node<T> {
     public T val;
     public List<Node<T>> children;

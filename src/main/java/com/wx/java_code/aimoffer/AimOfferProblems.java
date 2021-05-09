@@ -1,24 +1,45 @@
-package com.wx.java_code;
+package com.wx.java_code.aimoffer;
 
-import com.wx.java_code.resource.ListNode;
-import com.wx.java_code.resource.TreeNode;
+import com.wx.java_code.common.ListNode;
+import com.wx.java_code.common.TreeNode;
 
-import java.lang.reflect.Array;
 import java.util.*;
-import java.util.function.*;
-import java.util.stream.Collectors;
 
 /**
  * @Desc 剑指Offer习题解答
  * @Author wx
- * @Date 2020-2-22
+ * 剑指 Offer 03 数组中重复的数字 {@link #findRepeatNumber}
+ * 剑指 Offer 04 二维数组中的查找 {@link #findNumberIn2DArray}
+ * 剑指 Offer 05 替换空格 {@link #replaceSpace}
+ * 剑指 Offer 06 从尾到头打印链表 {@link #reversePrint}
+ * 剑指 Offer 10-I 斐波那契数列 {@link #fib}
+ * 剑指 Offer 10-II 青蛙跳台阶问题 {@link #numWays}
+ * 剑指 Offer 11 旋转数组的最小数字 {@link #minArray}
+ * 剑指 Offer 14-I 剪绳子 {@link #cuttingRope}
+ * 剑指 Offer 15 二进制中1的个数 {@link #hammingWeight}
+ * 剑指 Offer 16 数值的整数次方 {@link #myPow}
+ * 剑指 Offer 17 打印从1到最大的n位数 {@link #printNumbers}
+ * 剑指 Offer 18 删除链表的节点 {@link #deleteNode}
+ * 剑指 Offer 22 链表中倒数第k个节点 {@link #getKthFromEnd}
+ * 剑指 Offer 24 反转链表 {@link #reverseList}
+ * 剑指 Offer 25 合并两个排序的链表 {@link #mergeTwoLists}
+ * 剑指 Offer 27 二叉树的镜像 {@link #mirrorTree}
+ * 剑指 Offer 29 顺时针打印矩阵 {@link #spiralOrder}
+ * 剑指 Offer 40 最小的k个数 {@link #getLeastNumbers}
+ *剑指 Offer 50 第一个只出现一次的字符 {@link #firstUniqChar}
+ *剑指 Offer 53-I 在排序数组中查找数字I {@link #search}
+ *剑指 Offer 55 - I 二叉树的深度 {@link #maxDepth}
+ *剑指 Offer 55-II 平衡二叉树 {@link #isBalanced}
+ *剑指 Offer 56-I 数组中数字出现的次数 I {@link #singleNumbers(int[])}
+ *剑指 Offer 56-II 数组中数字出现的次数 II {@link #singleNumber(int[])}
+ *剑指 Offer 57 和为s的两个数字 {@link #twoSum}
+ *剑指 Offer 58 - II 左旋转字符串 {@link #reverseLeftWords}
+ *剑指 Offer 64 求1+2+...+n {@link #sumNums}
  */
-public class CodingInterviews {
-
+public class AimOfferProblems {
 
     /**
-     * 面试题03
-     * 数组中重复的数字
+     * 剑指 Offer 03 数组中重复的数字
      * @param nums 所给数组
      * @return 重复数字
      */
@@ -50,7 +71,7 @@ public class CodingInterviews {
     }
 
     /**
-     * 面试题04 二维数组中的查找
+     * 剑指 Offer 04 二维数组中的查找
      * @param matrix 二维数组
      * @param target 目标数字
      * @return 目标数字是否存在
@@ -84,8 +105,7 @@ public class CodingInterviews {
     }
 
     /**
-     * 面试题05
-     * 替换空格
+     * 剑指 Offer 05 替换空格
      * @param s 原始字符串
      * @return 结果字符串
      */
@@ -103,14 +123,13 @@ public class CodingInterviews {
     }
 
     /**
-     * 面试题06
-     * 从尾到头打印链表
+     * 剑指 Offer 06 从尾到头打印链表
      * @param head 链表头结点
      * @return 打印结果数组
      */
-    public int[] reversePrint(ListNode head) {
+    public int[] reversePrint(ListNode<Integer> head) {
         int count = 0;
-        ListNode temp = head;
+        ListNode<Integer> temp = head;
         while (temp != null) {
             count ++;
             temp = temp.next;
@@ -124,13 +143,13 @@ public class CodingInterviews {
         return result;
     }
 
+
+    public static final long THRES_HOLD = 1000000007;
     /**
-     * 面试题10-I
-     * 斐波那契数列
+     * 剑指 Offer 10-I 斐波那契数列
      * @param n 所求第n项
      * @return 斐波那契数列第n项
      */
-    public static final long THRES_HOLD = 1000000007;
     public static int fib(int n) {
         //递归法
 //        if (n < 1) {
@@ -159,8 +178,7 @@ public class CodingInterviews {
 
 
     /**
-     * 面试题10-II
-     * 青蛙跳台阶问题
+     * 剑指 Offer 10-II 青蛙跳台阶问题
      * @param n n级台阶
      * @return n级台阶的跳法
      */
@@ -181,8 +199,7 @@ public class CodingInterviews {
     }
 
     /**
-     * 面试题11
-     * 旋转数组的最小数字
+     * 剑指 Offer 11 旋转数组的最小数字
      * @param numbers 所给数组
      * @return 最小数字
      */
@@ -202,8 +219,7 @@ public class CodingInterviews {
     }
 
     /**
-     * 面试题14-I
-     * 剪绳子
+     * 剑指 Offer 14-I 剪绳子
      * @param n 绳子长度
      * @return 最大乘积
      */
@@ -244,8 +260,7 @@ public class CodingInterviews {
     }
 
     /**
-     * 面试题15
-     * 二进制中1的个数
+     * 剑指 Offer 15 二进制中1的个数
      * @param n 所给二进制数
      * @return 1的个数
      */
@@ -260,8 +275,7 @@ public class CodingInterviews {
 
 
     /**
-     * 面试题16
-     * 数值的整数次方
+     * 剑指 Offer 16 数值的整数次方
      * @param x 底数
      * @param n 幂数
      * @return 次方结果
@@ -287,8 +301,7 @@ public class CodingInterviews {
     }
 
     /**
-     * 面试题17
-     * 打印从1到最大的n位数
+     * 剑指 Offer 17 打印从1到最大的n位数
      * @param n 最大数为 10^2 - 1
      * @return 结果数组
      */
@@ -304,23 +317,22 @@ public class CodingInterviews {
 
 
     /**
-     * 面试题18
-     * 删除链表的节点
+     * 剑指 Offer 18 删除链表的节点
      * @param head 所给链表头结点
      * @param val 要删除的节点值
      * @return 删除后的链表头结点
      */
-    public ListNode deleteNode(ListNode head, int val) {
+    public ListNode<Integer> deleteNode(ListNode<Integer> head, int val) {
         if (head == null) {
             return null;
         }
-        if (head.val == val) {
+        if (head.val.equals(val)) {
             return head.next;
         }
-        ListNode node = head, temp = head;
+        ListNode<Integer> node = head, temp = head;
         head = head.next;
         while (head != null) {
-            if (head.val == val) {
+            if (head.val.equals(val)) {
                 temp.next = head.next;
                 head.next = null;
                 break;
@@ -332,13 +344,12 @@ public class CodingInterviews {
     }
 
     /**
-     * 面试题22
-     * 链表中倒数第k个节点
+     * 剑指 Offer 22 链表中倒数第k个节点
      * @param head 链表头节点
      * @param k
      * @return 倒数第k个节点
      */
-    public ListNode getKthFromEnd(ListNode head, int k) {
+    public ListNode<Integer> getKthFromEnd(ListNode<Integer> head, int k) {
         //两次遍历
 //        if (head == null) {
 //            return null;
@@ -356,7 +367,7 @@ public class CodingInterviews {
 //        }
 //        return head;
         //一次遍历，两个指针
-        ListNode p = head,q = head;
+        ListNode<Integer> p = head,q = head;
         int i = 0;
         while (q != null) {
             if (i < k) {
@@ -371,15 +382,14 @@ public class CodingInterviews {
     }
 
     /**
-     * 面试题24
-     * 反转链表
+     * 剑指 Offer 24 反转链表
      * @param head 链表头结点
      * @return 反转后的链表头节点
      */
-    public ListNode reverseList(ListNode head) {
-        ListNode result = null, temp = null;
+    public ListNode<Integer> reverseList(ListNode<Integer> head) {
+        ListNode<Integer> result = null, temp = null;
         while (head != null) {
-            result = new ListNode(head.val);
+            result = new ListNode<>(head.val);
             result.next = temp;
             temp = result;
             head = head.next;
@@ -388,14 +398,13 @@ public class CodingInterviews {
     }
 
     /**
-     * 面试题25
-     * 合并两个排序的链表
+     * 剑指 Offer 25 合并两个排序的链表
      * @param l1 递增链表1头结点
      * @param l2 递增链表2头结点
      * @return 合并后的链表头结点
      */
-    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
-        ListNode head,temp;
+    public ListNode<Integer> mergeTwoLists(ListNode<Integer> l1, ListNode<Integer> l2) {
+        ListNode<Integer> head,temp;
         if (l1 == null) {
             return l2;
         } else if (l2 == null) {
@@ -429,16 +438,15 @@ public class CodingInterviews {
     }
 
     /**
-     * 面试题27
-     * 二叉树的镜像
+     * 剑指 Offer 27 二叉树的镜像
      * @param root 根节点
      * @return 镜像二叉树根节点
      */
-    public static TreeNode mirrorTree(TreeNode root) {
+    public TreeNode<Integer> mirrorTree(TreeNode<Integer> root) {
         if (root == null){
             return null;
         }
-        TreeNode node = root.left;
+        TreeNode<Integer> node = root.left;
         root.left = root.right;
         root.right = node;
         mirrorTree(root.left);
@@ -447,8 +455,7 @@ public class CodingInterviews {
     }
 
     /**
-     * 面试题29
-     * 顺时针打印矩阵
+     * 剑指 Offer 29 顺时针打印矩阵
      * @param matrix 二维数组
      * @return
      */
@@ -493,8 +500,7 @@ public class CodingInterviews {
     }
 
     /**
-     * 面试题40
-     * 最小的k个数
+     * 剑指 Offer 40 最小的k个数
      * @param arr 原数组
      * @param k
      * @return 最小的k个数组成的集合
@@ -509,8 +515,7 @@ public class CodingInterviews {
 
 
     /**
-     * 面试题50
-     * 第一个只出现一次的字符
+     * 剑指 Offer 50 第一个只出现一次的字符
      * @param s 原字符串
      * @return 只出现一次的字符
      */
@@ -537,8 +542,7 @@ public class CodingInterviews {
 
 
     /**
-     * 面试题53-I
-     * 在排序数组中查找数字I
+     * 剑指 Offer 53-I 在排序数组中查找数字I
      * @param nums 原数组
      * @param target 目标数字
      * @return 目标数字在数组中出现的次数
@@ -569,8 +573,7 @@ public class CodingInterviews {
     }
 
     /**
-     * 面试题55 - I
-     * 二叉树的深度
+     * 剑指 Offer 55 - I 二叉树的深度
      * @param root 二叉树根节点
      * @return 深度
      */
@@ -580,8 +583,7 @@ public class CodingInterviews {
 
 
     /**
-     * 面试题55-II
-     * 平衡二叉树
+     * 剑指 Offer 55-II 平衡二叉树
      * @param root 根节点
      * @return 是否为平衡二叉树
      */
@@ -596,8 +598,7 @@ public class CodingInterviews {
     }
 
     /**
-     * 面试题56-I
-     * 数组中数字出现的次数 I
+     * 剑指 Offer 56-I 数组中数字出现的次数 I
      * @param nums 所给数组
      * @return 单次次数出现的数字集合
      */
@@ -620,8 +621,7 @@ public class CodingInterviews {
     }
 
     /**
-     * 面试题56-II
-     * 数组中数字出现的次数 II
+     * 剑指 Offer 56-II 数组中数字出现的次数 II
      * @param nums 所给数组
      * @return 单次次数出现的数字集合
      */
@@ -647,8 +647,7 @@ public class CodingInterviews {
 
 
     /**
-     * 面试题57
-     * 和为s的两个数字
+     * 剑指 Offer 57 和为s的两个数字
      * @param nums 原递增数组
      * @param target 和
      * @return 和为target的两个数字
@@ -685,11 +684,8 @@ public class CodingInterviews {
         return false;
     }
 
-
-
     /**
-     * 面试题58 - II
-     * 左旋转字符串
+     * 剑指 Offer 58 - II 左旋转字符串
      * @param s 字符串
      * @param n 旋转位置
      * @return 旋转结果
@@ -702,8 +698,7 @@ public class CodingInterviews {
     }
 
     /**
-     * 面试题64
-     * 求1+2+...+n
+     * 剑指 Offer 64 求1+2+...+n
      * @param n 最大求值
      * @return n阶和
      */
@@ -711,47 +706,5 @@ public class CodingInterviews {
         int sum = n;
         boolean is = (n > 0) && ((sum = sum + sumNums(n - 1)) > 0);
         return sum;
-    }
-
-
-    public static void main(String[] args) {
-
-        //打印从1到最大的n位数
-//        System.out.println(printNumbers(2));
-        //左旋转字符串
-//        System.out.println(reverseLeftWords("abcdefg", 2));
-        //替换空格
-//        System.out.println(replaceSpace("We are happy."));
-        //二叉树深度
-//        TreeNode root = new TreeNode(3);
-//        root.left = new TreeNode(9);
-//        root.right = new TreeNode(20);
-//        root.right.left = new TreeNode(15);
-//        root.right.right = new TreeNode(7);
-//        System.out.println("Depth = "+maxDepth(root));
-        //二叉树的镜像
-//        TreeNode mirror = mirrorTree(root);
-//        System.out.print("[");
-//        printBinaryTree(mirror);
-//        System.out.print("]");
-        //二进制中1的个数
-//        System.out.println(hammingWeight(000000000000000000000001001011));
-        //求1+2+..+n
-//        System.out.println(sumNums(9));
-        //数组中数字出现的次数I
-//        System.out.println(Arrays.toString(singleNumbers(new int[]{4, 1, 4, 6})));
-        //数组中数字出现的次数II
-//        System.out.println(singleNumber(new int[]{9,1,7,9,7,9,7}));
-        //青蛙跳台阶的问题
-        System.out.println(numWays(7));
-    }
-
-
-    public static void printBinaryTree(TreeNode root) {
-        if (root != null){
-            printBinaryTree(root.left);
-            System.out.print(root.val +" ");
-            printBinaryTree(root.right);
-        }
     }
 }

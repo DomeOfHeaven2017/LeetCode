@@ -1,13 +1,20 @@
-package com.wx.java_code;
+package com.wx.java_code.array;
 
 
-import com.wx.java_code.resource.Difference;
+import com.wx.java_code.common.Difference;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by wx on 20-6-7
  * Description: LeetCode 数组相关问题集合
+ *
+ * 面试题 01.01 判定字符是否唯一 {@link #isUnique}
+ *
+ * 剑指 Offer 03 数组中重复的数字 {@link #findRepeatNumber}
+ *
  * 14. 最长公共前缀 {@link #longestCommonPrefix}
  * 26.删除排序数组中的重复项 {@link #removeDuplicates}
  * 27. 移除元素 {@link #removeElement}
@@ -27,15 +34,66 @@ public class ArrayProblemSet {
     }
 
     /**
+     * 面试题 01.01 判定字符是否唯一
+     * @param astr 所给字符串
+     * @return 字符串中的字符是否唯一
+     */
+    public static boolean isUnique(String astr) {
+        if (astr == null) {
+            return false;
+        }
+        Map<Character,Integer> map = new HashMap<>(astr.length());
+        char[] chars = astr.toCharArray();
+        for (char c : chars) {
+            if (map.containsKey(c)) {
+                return false;
+            } else {
+                map.put(c, 1);
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 剑指 Offer 03 数组中重复的数字
+     * @param nums 所给数组
+     * @return 重复数字
+     */
+    public int findRepeatNumber(int[] nums) {
+        if (nums == null || nums.length < 2 || nums.length > 100000) {
+            return 0;
+        }
+//        int[] temp = new int[nums.length];
+//        for (int i = 0 ; i < nums.length ; i++) {
+//            temp[nums[i]] ++;
+//            if (temp[nums[i]] > 1) {
+//                return nums[i];
+//            }
+//        }
+//        return 0;
+        int temp = 0;
+        for (int i = 0 ; i < nums.length ; i ++) {
+            while (nums[i] != i) {
+                if (nums[i] == nums[nums[i]]) {
+                    return nums[i];
+                } else {
+                    temp = nums[i];
+                    nums[i] = nums[temp];
+                    nums[temp] = temp;
+                }
+            }
+        }
+        return 0;
+    }
+
+    /**
      * 14. 最长公共前缀
      * @param strs 字符串数组
      * @return 公共前缀
      */
     public String longestCommonPrefix(String[] strs) {
-        if (strs == null || strs.length == 0) {
-            return "";
-        }
-        for
+        // TODO: 2021/5/9
+        return null;
     }
 
     /**
@@ -138,7 +196,7 @@ public class ArrayProblemSet {
     }
 
     /**
-     * 汉明距离
+     * 461. 汉明距离
      * @param x 参数x
      * @param y 参数y
      * @return x与y之间的汉明距离
@@ -156,7 +214,7 @@ public class ArrayProblemSet {
     }
 
     /**
-     * 转置矩阵
+     * 867. 转置矩阵
      * @param A 原矩阵
      * @return 转置矩阵
      */
@@ -173,7 +231,7 @@ public class ArrayProblemSet {
     }
 
     /**
-     * 航班预订统计
+     * 1109.航班预订统计
      * @param bookings 航班信息
      * @param n 航班数
      * @return 航班座位数组
@@ -189,7 +247,7 @@ public class ArrayProblemSet {
     }
 
     /**
-     * 重新排列数组
+     * 1470.重新排列数组
      * @param nums 原数组
      * @param n 中间索引
      * @return 重排数组

@@ -1,5 +1,8 @@
-package com.wx.java_code.resource;
+package com.wx.java_code.common;
 
+/**
+ * 前缀和
+ */
 public class PrefixSum {
     private int[] prefix;
     //根据所给数组构造前缀和数组

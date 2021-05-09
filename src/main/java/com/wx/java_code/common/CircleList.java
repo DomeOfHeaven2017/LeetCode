@@ -1,4 +1,4 @@
-package com.wx.java_code.resource;
+package com.wx.java_code.common;
 
 /**
  * 循环单链表
