@@ -290,7 +290,7 @@ public class ArrayProblemSet {
             return -1;
         }
         //求制作花束等待的最大时间
-        int min = 1, max = 0;
+        int min = 1, max = 1;
         for (int i : bloomDay) {
             max = Math.max(max, i);
         }

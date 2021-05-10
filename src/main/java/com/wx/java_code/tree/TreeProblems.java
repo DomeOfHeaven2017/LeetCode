@@ -43,6 +43,7 @@ import java.util.*;
  *   654. 最大二叉树 {@link #constructMaximumBinaryTree}
  *   700. 二叉搜索树中的搜索 {@link #searchBST}
  *   701. 二叉搜索树中的插入操作 {@link #insertIntoBST}
+ *   872. 叶子相似的树 {@link #leafSimilar}
  *   1302. 层数最深叶子节点的和 {@link #deepestLeavesSum}
  *   1379.找出克隆二叉树中的相同节点{@link #getTargetCopy}
  *
@@ -228,14 +229,15 @@ public class TreeProblems {
         return true;
     }
 
+
+    int kthCount = 0;
+    int kthAns = -1;
     /**
      * 230. 二叉搜索树中第K小的元素
      * @param root 根节点
      * @param k 第k小
      * @return 第k小的元素
      */
-    int kthCount = 0;
-    int kthAns = -1;
     public int kthSmallest(TreeNode<Integer> root, int k) {
         kthSmallestDfs(root, k);
         return kthAns;
@@ -724,12 +726,12 @@ public class TreeProblems {
         return root;
     }
 
+    private int sumOfLeftLeaves = 0;
     /**
      * 404. 左叶子之和
      * @param root 根节点
      * @return  左叶子节点之和
      */
-    private int sumOfLeftLeaves = 0;
     public int sumOfLeftLeaves(TreeNode<Integer> root) {
          sumOfLeftLeavesDfs(root, false);
          return sumOfLeftLeaves;
@@ -1095,6 +1097,30 @@ public class TreeProblems {
         }
         return null;
     }
+
+    /**
+     * 872. 叶子相似的树
+     * @param root1 二叉树1
+     * @param root2 二叉树2
+     * @return 两棵树的叶子是否相似
+     */
+    public boolean leafSimilar(TreeNode<Integer> root1, TreeNode<Integer> root2) {
+        List<Integer> list1 = new ArrayList<>();
+        List<Integer> list2 = new ArrayList<>();
+        if (root1 != null) leafSimilar(root1, list1);
+        if (root2 != null) leafSimilar(root2, list2);
+        return list1.equals(list2);
+    }
+
+    private void leafSimilar(TreeNode<Integer> root, List<Integer> list) {
+        if (root.left == null && root.right == null) {
+            list.add(root.val);
+        }
+        if (root.left != null) leafSimilar(root.left, list);
+        if (root.right != null) leafSimilar(root.right, list);
+    }
+
+
 
     /**
      * 1302. 层数最深叶子节点的和
