@@ -4,6 +4,7 @@ package com.wx.java_code.math;
  * 数学问题集合
  *  面试题16.01 交换数字 {@link #swapNumbers}
  *
+ * 1310. 子数组异或查询 {@link #xorQueries}
  *  1734. 解码异或后的排列 {@link #decode}
  */
 public class MathProblems {
@@ -18,6 +19,30 @@ public class MathProblems {
         int xor = numbers[0] ^ numbers[1];
         result[0] = xor ^ numbers[0];
         result[1] = xor ^ numbers[1];
+        return result;
+    }
+
+    /**
+     * 1310. 子数组异或查询
+     * @param arr 源数组
+     * @param queries 查询数组
+     * @return 异或结果数组
+     */
+    public int[] xorQueries(int[] arr, int[][] queries) {
+        //构建前缀异或数组，即xors[i] = arr[0]^....arr[i]
+        //xors[left - 1]^xors[right]=异或[0...left-1]^异或[0...left-1]^异或[left...right]=异或[left...right]
+        int m = arr.length, n = queries.length;
+        int[] result = new int[n];
+        //前缀异或数组，xor[0] = 0;
+        int[] xors = new int[m + 1];
+        for (int i = 1; i < m + 1; i ++) {
+            xors[i] = xors[i - 1] ^ arr[i - 1];
+        }
+        for (int i = 0 ; i < n ; i ++) {
+            int left = queries[i][0] + 1;
+            int right = queries[i][1] + 1;
+            result[i] = xors[left - 1] ^ xors[right];
+        }
         return result;
     }
 
