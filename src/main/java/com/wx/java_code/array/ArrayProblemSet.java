@@ -25,6 +25,8 @@ import java.util.*;
  * 1470.重新排列数组 {@link #shuffle}
  * 1480. 一维数组的动态和 {@link #runningSum}
  * 1482. 制作 m 束花所需的最少天数 {@link #minDays}
+ *
+ * 1672. 最富有客户的资产总量 {@link #maximumWealth}
  */
 public class ArrayProblemSet {
 
@@ -328,6 +330,26 @@ public class ArrayProblemSet {
         }
         //当前天数下制作的花束数量是否大于等于所需的花束数量
         return sum >= m;
+    }
+
+    /**
+     * 1672. 最富有客户的资产总量
+     * @param accounts 银行资产数据
+     * @return 最富有客户的资产总量
+     */
+    public int maximumWealth(int[][] accounts) {
+        int n = accounts[0].length;
+        int max = 0;
+        for (int[] account : accounts) {
+            int temp = 0;
+            for (int j = 0; j < n; j++) {
+                temp += account[j];
+            }
+            if (temp > max) {
+                max = temp;
+            }
+        }
+        return max;
     }
 
 }
