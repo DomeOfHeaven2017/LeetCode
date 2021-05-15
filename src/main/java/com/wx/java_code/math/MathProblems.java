@@ -1,9 +1,13 @@
 package com.wx.java_code.math;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 数学问题集合
  *  面试题16.01 交换数字 {@link #swapNumbers}
  *
+ * 13. 罗马数字转整数 {@link #romanToInt}
  * 1310. 子数组异或查询 {@link #xorQueries}
  *  1734. 解码异或后的排列 {@link #decode}
  */
@@ -19,6 +23,39 @@ public class MathProblems {
         int xor = numbers[0] ^ numbers[1];
         result[0] = xor ^ numbers[0];
         result[1] = xor ^ numbers[1];
+        return result;
+    }
+
+    /**
+     * 13. 罗马数字转整数
+     * @param s 罗马数字字符串
+     * @return 转换后的整数
+     */
+    public int romanToInt(String s) {
+        int result = 0;
+        //将罗马数字字母与整数对应存储到map中，方便获取
+        Map<Character, Integer> map = new HashMap<Character, Integer>() {{
+            put('I', 1); put('V', 5); put('X', 10); put('L', 50);
+            put('C', 100); put('D', 500); put('M', 1000);
+        }};
+        char[] chars = s.toCharArray();
+        for (int i = 0; i < chars.length; i ++) {
+            //遍历罗马数字字符串，根据规则如果小的数值在大的前面就要减去这个小的值
+            //反之需要加上这个小的值
+            int value = map.get(chars[i]);
+            if (i < chars.length - 1 && value < map.get(chars[i+1])) {
+                result -= value;
+            } else {
+                result += value;
+            }
+            //另一种解法是先加上最小值，然后遇到小的值在前面时就加上大的值并减去2倍的小的值
+            //即 max - min = min + max - 2 * min
+            if (i > 0 && value > map.get(chars[i - 1])) {
+                result += value - 2 * map.get(chars[i - 1]);
+            } else {
+                result += value;
+            }
+        }
         return result;
     }
 
