@@ -44,6 +44,7 @@ import java.util.*;
  *   700. 二叉搜索树中的搜索 {@link #searchBST}
  *   701. 二叉搜索树中的插入操作 {@link #insertIntoBST}
  *   872. 叶子相似的树 {@link #leafSimilar}
+ *   993. 二叉树的堂兄弟节点 {@link #isCousins}
  *   1302. 层数最深叶子节点的和 {@link #deepestLeavesSum}
  *   1379.找出克隆二叉树中的相同节点{@link #getTargetCopy}
  *
@@ -1118,6 +1119,47 @@ public class TreeProblems {
         }
         if (root.left != null) leafSimilar(root.left, list);
         if (root.right != null) leafSimilar(root.right, list);
+    }
+
+    /**
+     * 993. 二叉树的堂兄弟节点
+     * @param root 二叉树根节点
+     * @param x 节点值x
+     * @param y 节点值y
+     * @return x, y对应的节点是否为堂兄弟节点
+     */
+    public boolean isCousins(TreeNode<Integer> root, int x, int y) {
+        isCousinsDfs(root, x, y, 0, null);
+        //堂兄弟节点为两个节点深度相同但父节点不同
+        return xLevel == yLevel  && xParent != yParent;
+    }
+
+    /**
+     * 记录x, y对应节点的父节点
+     */
+    private TreeNode<Integer> xParent, yParent;
+    /**
+     * 记录x, y对应节点的深度
+     */
+    private int xLevel = 0, yLevel = 0;
+    private void isCousinsDfs(TreeNode<Integer> root, int x, int y, int level,  TreeNode<Integer> parent) {
+        if (root == null) return;
+        boolean xFound = false, yFound = false;
+        //搜索x, y节点，找到后记录其深度和父节点
+        if (root.val == x) {
+            xParent = parent;
+            xLevel = level;
+            xFound = true;
+        } else if (root.val == y) {
+            yParent = parent;
+            yLevel = level;
+            yFound = true;
+        }
+        //已经找到两个节点，无需再查找
+        if (xFound && yFound) return;
+        //递归遍历左右子树
+        isCousinsDfs(root.left, x, y, level + 1, root);
+        isCousinsDfs(root.right, x, y, level + 1, root);
     }
 
 
