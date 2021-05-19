@@ -22,6 +22,7 @@ import java.util.*;
  * 461. 汉明距离 {@link #hammingDistance}
  * 867. 转置矩阵 {@link #transpose}
  * 1109.航班预订统计 {@link #corpFlightBookings}
+ * 1431. 拥有最多糖果的孩子 {@link #kidsWithCandies}
  * 1470.重新排列数组 {@link #shuffle}
  * 1480. 一维数组的动态和 {@link #runningSum}
  * 1482. 制作 m 束花所需的最少天数 {@link #minDays}
@@ -245,6 +246,27 @@ public class ArrayProblemSet {
             diff.increment(nums[0] - 1, nums[1] - 1, nums[2]);
         }
         return diff.result();
+    }
+
+    /**
+     * 1431. 拥有最多糖果的孩子
+     * @param candies 拥有的糖果数
+     * @param extraCandies 额外糖果
+     * @return
+     */
+    public List<Boolean> kidsWithCandies(int[] candies, int extraCandies) {
+        int max = candies[0];
+        for (int i = 0;i < candies.length;i ++) {
+            if (candies[i] >= max) {
+                max = candies[i];
+            }
+            candies[i] += extraCandies;
+        }
+        List<Boolean> result = new ArrayList<>(candies.length);
+        for (int candy : candies) {
+            result.add(candy >=  max);
+        }
+        return result;
     }
 
     /**
