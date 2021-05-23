@@ -22,6 +22,7 @@ import java.util.*;
  * 461. 汉明距离 {@link #hammingDistance}
  * 867. 转置矩阵 {@link #transpose}
  * 1109.航班预订统计 {@link #corpFlightBookings}
+ * 1389. 按既定顺序创建目标数组 {@link #createTargetArray}
  * 1431. 拥有最多糖果的孩子 {@link #kidsWithCandies}
  * 1470.重新排列数组 {@link #shuffle}
  * 1480. 一维数组的动态和 {@link #runningSum}
@@ -246,6 +247,24 @@ public class ArrayProblemSet {
             diff.increment(nums[0] - 1, nums[1] - 1, nums[2]);
         }
         return diff.result();
+    }
+
+    /**
+     * 1389. 按既定顺序创建目标数组
+     * @param nums 源数组
+     * @param index 索引数组
+     * @return 既定顺序数组
+     */
+    public int[] createTargetArray(int[] nums, int[] index) {
+        List<Integer> temp = new ArrayList<>(nums.length);
+        for (int i = 0; i < nums.length ; i ++) {
+            temp.add(index[i], nums[i]);
+        }
+        int[] ret = new int[nums.length];
+        for (int i = 0; i < temp.size(); i++) {
+            ret[i] = temp.get(i);
+        }
+        return ret;
     }
 
     /**
