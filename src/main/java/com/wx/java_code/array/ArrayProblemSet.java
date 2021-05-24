@@ -29,6 +29,7 @@ import java.util.*;
  * 1482. 制作 m 束花所需的最少天数 {@link #minDays}
  *
  * 1672. 最富有客户的资产总量 {@link #maximumWealth}
+ * 1773. 统计匹配检索规则的物品数量 {@link #countMatches}
  */
 public class ArrayProblemSet {
 
@@ -391,6 +392,33 @@ public class ArrayProblemSet {
             }
         }
         return max;
+    }
+
+    /**
+     * 1773. 统计匹配检索规则的物品数量
+     * @param items 物品数据
+     * @param ruleKey 匹配key
+     * @param ruleValue 匹配值
+     * @return 匹配的物品数量
+     */
+    public int countMatches(List<List<String>> items, String ruleKey, String ruleValue) {
+        int count = 0, index = 0;
+        switch (ruleKey) {
+            case "color":
+                index = 1;
+                break;
+            case "name":
+                index = 2;
+                break;
+            default:
+                break;
+        }
+        for (List<String> item : items) {
+            if (ruleValue.equals(item.get(index))) {
+                count ++;
+            }
+        }
+        return count;
     }
 
 }
