@@ -27,9 +27,9 @@ import java.util.*;
  * 1470.重新排列数组 {@link #shuffle}
  * 1480. 一维数组的动态和 {@link #runningSum}
  * 1482. 制作 m 束花所需的最少天数 {@link #minDays}
- *
  * 1672. 最富有客户的资产总量 {@link #maximumWealth}
  * 1773. 统计匹配检索规则的物品数量 {@link #countMatches}
+ * 1832. 判断句子是否为全字母句 {@link #checkIfPangram}
  */
 public class ArrayProblemSet {
 
@@ -419,6 +419,29 @@ public class ArrayProblemSet {
             }
         }
         return count;
+    }
+
+    /**
+     * 1832. 判断句子是否为全字母句
+     * @param sentence 句子字符串
+     * @return 是否包含全字母
+     */
+    public boolean checkIfPangram(String sentence) {
+        if(sentence == null || sentence.length() < 26) {
+            return false;
+        }
+        boolean[] map = new boolean[26];
+        char[] chars = sentence.toCharArray();
+        for (char c : chars) {
+            int index = c - 'a';
+            map[index] = true;
+        }
+        for (boolean b : map) {
+            if (!b) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }
