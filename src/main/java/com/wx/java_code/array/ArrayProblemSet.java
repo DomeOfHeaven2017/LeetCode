@@ -18,6 +18,7 @@ import java.util.*;
  * 27. 移除元素 {@link #removeElement}
  * 189. 旋转数组 {@link #rotate}
  * 283. 移动零  {@link #moveZeroes}
+ *349. 两个数组的交集 {@link #intersection}
  *  350. 两个数组的交集II {@link #intersect}
  * 461. 汉明距离 {@link #hammingDistance}
  * 867. 转置矩阵 {@link #transpose}
@@ -172,6 +173,33 @@ public class ArrayProblemSet {
         for (int i = index; i< nums.length; i++) {
             nums[i] = 0;
         }
+    }
+
+    /**
+     *349. 两个数组的交集
+     * @param nums1 数组1
+     * @param nums2 数组2
+     * @return 交集
+     */
+    public int[] intersection(int[] nums1, int[] nums2) {
+        int[] result = new int[Math.min(nums1.length, nums2.length)];
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+        int i = 0, j = 0, k = 0;
+        while (i < nums1.length && j < nums2.length) {
+            if (nums1[i] < nums2[j]) {
+                i++;
+            } else if (nums1[i] > nums2[j]) {
+                j++;
+            } else if (nums1[i] == nums2[j]) {
+                if (k == 0 || result[k-1] != nums1[i]) {
+                    result[k++] = nums1[i];
+                }
+                i++;
+                j++;
+            }
+        }
+        return Arrays.copyOf(result, k);
     }
 
     /**
