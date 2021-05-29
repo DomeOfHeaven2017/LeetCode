@@ -29,6 +29,7 @@ import java.util.*;
  * 1480. 一维数组的动态和 {@link #runningSum}
  * 1482. 制作 m 束花所需的最少天数 {@link #minDays}
  * 1672. 最富有客户的资产总量 {@link #maximumWealth}
+ * 1678. 设计 Goal 解析器 {@link #interpret}
  * 1773. 统计匹配检索规则的物品数量 {@link #countMatches}
  * 1832. 判断句子是否为全字母句 {@link #checkIfPangram}
  */
@@ -420,6 +421,36 @@ public class ArrayProblemSet {
             }
         }
         return max;
+    }
+
+    /**
+     * 1678. 设计 Goal 解析器
+     * @param command 命令
+     * @return 解析后的字符串
+     */
+    public String interpret(String command) {
+        if (command == null || command.length() <= 0) {
+            return null;
+        }
+        StringBuilder result = new StringBuilder();
+        StringBuilder temp = new StringBuilder();
+        char[] cmds = command.toCharArray();
+        Stack<Character> stack = new Stack<>();
+        for (char c : cmds) {
+            if ('G' == c) {
+                result.append('G');
+            } else if (')' == c) {
+                if ("(".equals(temp.toString())) {
+                    result.append('o');
+                } else if ("(al".equals(temp.toString())) {
+                    result.append("al");
+                }
+                temp.delete(0, temp.length());
+            } else {
+                temp.append(c);
+            }
+        }
+        return result.toString();
     }
 
     /**
