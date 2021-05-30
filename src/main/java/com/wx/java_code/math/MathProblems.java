@@ -8,6 +8,7 @@ import java.util.Map;
  *  面试题16.01 交换数字 {@link #swapNumbers}
  *
  * 13. 罗马数字转整数 {@link #romanToInt}
+ * 231. 2 的幂 {@link #isPowerOfTwo}
  * 1310. 子数组异或查询 {@link #xorQueries}
  *  1734. 解码异或后的排列 {@link #decode}
  */
@@ -57,6 +58,18 @@ public class MathProblems {
             }
         }
         return result;
+    }
+
+    /**
+     * 231. 2 的幂
+     * @param n 整数N
+     * @return 是否为2的幂
+     */
+    public boolean isPowerOfTwo(int n) {
+        //一个数为2的幂，则其二进制只有最高位一个1
+        //若n为2的幂，则n的二进制除最高位为1之外其余为0；则n-1的二进制除最高位为0之外，其余为1
+        //则n & n -1可以把n的最低位的1变为0，(n & n-1 == 0)可检测n是否只有最高位一个1;
+        return n > 0 && (n & (n - 1)) == 0;
     }
 
     /**
