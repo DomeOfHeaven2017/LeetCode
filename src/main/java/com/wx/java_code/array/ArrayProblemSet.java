@@ -23,6 +23,7 @@ import java.util.*;
  * 461. 汉明距离 {@link #hammingDistance}
  * 867. 转置矩阵 {@link #transpose}
  * 1109.航班预订统计 {@link #corpFlightBookings}
+ * 1365. 有多少小于当前数字的数字 {@link #smallerNumbersThanCurrent}
  * 1389. 按既定顺序创建目标数组 {@link #createTargetArray}
  * 1431. 拥有最多糖果的孩子 {@link #kidsWithCandies}
  * 1470.重新排列数组 {@link #shuffle}
@@ -277,6 +278,30 @@ public class ArrayProblemSet {
             diff.increment(nums[0] - 1, nums[1] - 1, nums[2]);
         }
         return diff.result();
+    }
+
+    /**
+     * 1365. 有多少小于当前数字的数字
+     * @param nums 数据
+     * @return
+     */
+    public int[] smallerNumbersThanCurrent(int[] nums) {
+        //新建一个桶数组，因为 0 =<nums <= 100
+        int[] bucket = new int[101];
+        //计算对应nums[i]的频率
+        for (int num : nums) {
+            bucket[num]++;
+        }
+        //计算前缀和
+        for (int i = 1;i < bucket.length;i++) {
+            bucket[i] = bucket[i] + bucket[i-1];
+        }
+        int[] result = new int[nums.length];
+        //计算结果
+        for (int i = 0; i < result.length; i++) {
+            result[i] = bucket[nums[i] - 1];
+        }
+        return result;
     }
 
     /**
