@@ -26,6 +26,7 @@ import java.util.*;
  * 1365. 有多少小于当前数字的数字 {@link #smallerNumbersThanCurrent}
  * 1389. 按既定顺序创建目标数组 {@link #createTargetArray}
  * 1431. 拥有最多糖果的孩子 {@link #kidsWithCandies}
+ * 1450. 在既定时间做作业的学生人数 {@link #busyStudent}
  * 1470.重新排列数组 {@link #shuffle}
  * 1480. 一维数组的动态和 {@link #runningSum}
  * 1482. 制作 m 束花所需的最少天数 {@link #minDays}
@@ -341,6 +342,24 @@ public class ArrayProblemSet {
             result.add(candy >=  max);
         }
         return result;
+    }
+
+    /**
+     * 1450. 在既定时间做作业的学生人数
+     * @param startTime 开始时间数组
+     * @param endTime 结束时间数组
+     * @param queryTime 查询时间
+     * @return 查询时间时正在做作业的学生数
+     */
+    public int busyStudent(int[] startTime, int[] endTime, int queryTime) {
+        int i = 0, count = 0;
+        while (i < startTime.length) {
+            if (queryTime >= startTime[i] && queryTime <= endTime[i]) {
+                count++;
+            }
+            i++;
+        }
+        return count;
     }
 
     /**
