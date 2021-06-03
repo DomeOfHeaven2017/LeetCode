@@ -32,6 +32,7 @@ import java.util.*;
  * 1482. 制作 m 束花所需的最少天数 {@link #minDays}
  * 1672. 最富有客户的资产总量 {@link #maximumWealth}
  * 1678. 设计 Goal 解析器 {@link #interpret}
+ * 1704. 判断字符串的两半是否相似 {@link #halvesAreAlike}
  * 1773. 统计匹配检索规则的物品数量 {@link #countMatches}
  * 1832. 判断句子是否为全字母句 {@link #checkIfPangram}
  */
@@ -495,6 +496,28 @@ public class ArrayProblemSet {
             }
         }
         return result.toString();
+    }
+
+    /**
+     * 1704. 判断字符串的两半是否相似
+     * @param s 字符串
+     * @return 是否相似
+     */
+    public boolean halvesAreAlike(String s) {
+        if (s == null || s.length() <=0) return true;
+        int length = s.length();
+        int prev = 0, next = 0;
+        char[] chars = s.toLowerCase().toCharArray();
+        for (int i = 0; i < length ; i++) {
+            if (chars[i] == 'a' || chars[i] == 'e' || chars[i] == 'i' || chars[i] == 'o' || chars[i] == 'u') {
+                if (i <= length / 2) {
+                    prev++;
+                } else {
+                    next++;
+                }
+            }
+        }
+        return prev == next;
     }
 
     /**
