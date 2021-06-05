@@ -11,6 +11,7 @@ import java.util.Map;
  * 231. 2 的幂 {@link #isPowerOfTwo}
  * 342. 4的幂 {@link #isPowerOfFour}
  * 1310. 子数组异或查询 {@link #xorQueries}
+ * 1323. 6 和 9 组成的最大数字 {@link #maximum69Number}
  *  1734. 解码异或后的排列 {@link #decode}
  */
 public class MathProblems {
@@ -107,6 +108,24 @@ public class MathProblems {
             result[i] = xors[left - 1] ^ xors[right];
         }
         return result;
+    }
+
+    /**
+     * 1323. 6 和 9 组成的最大数字
+     * @param num 源数据
+     * @return 翻转一次组成的最大数据
+     */
+    public int maximum69Number (int num) {
+        //转换为字符数组方便操作
+        char[] chars = String.valueOf(num).toCharArray();
+        //从高位搜索转换第一个6为9
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] == '6') {
+                chars[i] = '9';
+                break;
+            }
+        }
+        return Integer.parseInt(String.copyValueOf(chars));
     }
 
     /**
