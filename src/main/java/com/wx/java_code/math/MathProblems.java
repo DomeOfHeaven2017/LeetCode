@@ -6,6 +6,7 @@ import java.util.Map;
 /**
  * 数学问题集合
  *  面试题16.01 交换数字 {@link #swapNumbers}
+ *  面试题 16.07. 最大数值 {@link #maximum}
  *
  * 13. 罗马数字转整数 {@link #romanToInt}
  * 231. 2 的幂 {@link #isPowerOfTwo}
@@ -27,6 +28,22 @@ public class MathProblems {
         result[0] = xor ^ numbers[0];
         result[1] = xor ^ numbers[1];
         return result;
+    }
+
+    /**
+     * 面试题 16.07. 最大数值
+     * @param a 参数a
+     * @param b 参数b
+     * @return 最大值
+     */
+    public int maximum(int a, int b) {
+        //获取差值,避免溢出，转成long类型
+        long diff = (long) a - (long) b;
+        //由于diff是long类型，所以需要右移63位得到符号位，负数移动后为-1,正数移动后为0
+        int k = (int) (1 + (diff  >> 63));
+        //如果a > b,则 k = 1, k*a+(!k)*b = a;
+        //如果a < b,则 k = 0, k*a+(!k)*b = b;
+        return k * a + (k^1) * b;
     }
 
     /**
