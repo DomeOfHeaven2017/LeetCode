@@ -23,6 +23,7 @@ import java.util.*;
  * 461. 汉明距离 {@link #hammingDistance}
  * 867. 转置矩阵 {@link #transpose}
  * 1109.航班预订统计 {@link #corpFlightBookings}
+ * 1207. 独一无二的出现次数 {@link #uniqueOccurrences}
  * 1365. 有多少小于当前数字的数字 {@link #smallerNumbersThanCurrent}
  * 1389. 按既定顺序创建目标数组 {@link #createTargetArray}
  * 1431. 拥有最多糖果的孩子 {@link #kidsWithCandies}
@@ -280,6 +281,26 @@ public class ArrayProblemSet {
             diff.increment(nums[0] - 1, nums[1] - 1, nums[2]);
         }
         return diff.result();
+    }
+
+    /**
+     * 1207. 独一无二的出现次数
+     * @param arr  数据数组
+     * @return 数组中的数字出现次数是否都不相同
+     */
+    public boolean uniqueOccurrences(int[] arr) {
+        Map<Integer, Integer> map = new HashMap<>(arr.length);
+        //计算数字出现次数，并以该数字为键存入哈希表中
+        for (int i : arr) {
+            map.put(i, map.getOrDefault(i, 0) + 1);
+        }
+        //将出现次数存到集合中，利用集合没有重复元素的特点来过滤相同次数的数字
+        //如果集合的长度等于哈希表的长度，则每个数字出现次数都不相同
+        Set<Integer> set = new HashSet<>();
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            set.add(entry.getValue());
+        }
+        return set.size() == map.size();
     }
 
     /**
