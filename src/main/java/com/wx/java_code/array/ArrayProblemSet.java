@@ -22,6 +22,7 @@ import java.util.*;
  *  350. 两个数组的交集II {@link #intersect}
  * 461. 汉明距离 {@link #hammingDistance}
  * 867. 转置矩阵 {@link #transpose}
+ * 977. 有序数组的平方 {@link #sortedSquares}
  * 1109.航班预订统计 {@link #corpFlightBookings}
  * 1207. 独一无二的出现次数 {@link #uniqueOccurrences}
  * 1365. 有多少小于当前数字的数字 {@link #smallerNumbersThanCurrent}
@@ -263,6 +264,31 @@ public class ArrayProblemSet {
             for (int j = 0; j < n; j++){
                 result[j][i] = A[i][j];
             }
+        }
+        return result;
+    }
+
+    /**
+     * 977. 有序数组的平方
+     * @param nums 非递减数组
+     * @return 递增平方数组
+     */
+    public int[] sortedSquares(int[] nums) {
+        int[] result = new int[nums.length];
+        int left = 0, right = nums.length - 1, pos = nums.length - 1;
+        //每次比较左右两个指针对应的值的平方，选取较大的值
+        //因为最后构建的是递增序列，所以pos由length-1到0.
+        while (left <= right) {
+            int leftSquare = nums[left] * nums[left];
+            int rightSquare = nums[right] * nums[right];
+            if (leftSquare > rightSquare) {
+                result[pos] = leftSquare;
+                left++;
+            } else {
+                result[pos] = rightSquare;
+                right--;
+            }
+            pos--;
         }
         return result;
     }
