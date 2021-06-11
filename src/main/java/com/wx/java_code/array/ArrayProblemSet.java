@@ -37,6 +37,7 @@ import java.util.*;
  * 1704. 判断字符串的两半是否相似 {@link #halvesAreAlike}
  * 1773. 统计匹配检索规则的物品数量 {@link #countMatches}
  * 1832. 判断句子是否为全字母句 {@link #checkIfPangram}
+ * 1869. 哪种连续子字符串更长 {@link #checkZeroOnes}
  */
 public class ArrayProblemSet {
 
@@ -615,6 +616,33 @@ public class ArrayProblemSet {
             }
         }
         return true;
+    }
+
+    /**
+     *  1869. 哪种连续子字符串更长
+     * @param s 由1和0组成的字符串
+     * @return 由1组成的连续字符串是否比由0组成的长
+     */
+    public boolean checkZeroOnes(String s) {
+        if (s == null || s.length() <= 0) return false;
+        char[] chars = s.toCharArray();
+        //分别存储1和0的临时次数
+        int oneCount = 0, zeroCount = 0;
+        //分别存储1和0的最大次数
+        int maxOne = 0, maxZero = 0;
+        for (char c : chars) {
+            if (c == '0') {
+                //当前为0，则1的次数重置为0，更新0的最大次数
+                zeroCount ++;
+                oneCount = 0;
+                maxZero = Math.max(zeroCount, maxZero);
+            } else {
+                oneCount ++;
+                zeroCount = 0;
+                maxOne = Math.max(oneCount, maxOne);
+            }
+        }
+        return maxOne > maxZero;
     }
 
 }
