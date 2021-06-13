@@ -14,6 +14,7 @@ import java.util.Map;
  * 1310. 子数组异或查询 {@link #xorQueries}
  * 1323. 6 和 9 组成的最大数字 {@link #maximum69Number}
  *  1734. 解码异或后的排列 {@link #decode}
+ *  1822. 数组元素积的符号 {@link #arraySign}
  */
 public class MathProblems {
 
@@ -173,5 +174,20 @@ public class MathProblems {
             result[i] = encoded[i - 1] ^ result[i - 1];
         }
         return result;
+    }
+
+    /**
+     * 1822. 数组元素积的符号
+     * @param nums 数组数据
+     * @return 元素积符号
+     */
+    public int arraySign(int[] nums) {
+        //计算负数的个数
+        int negative = 0;
+        for (int num : nums) {
+            if (num == 0) return 0;
+            if (num < 0) negative ++;
+        }
+        return negative % 2 == 0 ? 1 : -1;
     }
 }
