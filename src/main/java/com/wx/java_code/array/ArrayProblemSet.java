@@ -21,6 +21,7 @@ import java.util.*;
  *349. 两个数组的交集 {@link #intersection}
  *  350. 两个数组的交集II {@link #intersect}
  * 461. 汉明距离 {@link #hammingDistance}
+ * 852. 山脉数组的峰顶索引 {@link #peakIndexInMountainArray}
  * 867. 转置矩阵 {@link #transpose}
  * 977. 有序数组的平方 {@link #sortedSquares}
  * 1109.航班预订统计 {@link #corpFlightBookings}
@@ -250,6 +251,26 @@ public class ArrayProblemSet {
             xor = xor >> 1;
         }
         return distance;
+    }
+
+    /**
+     * 852. 山脉数组的峰顶索引
+     * @param arr 山脉数据
+     * @return 峰顶索引
+     */
+    public int peakIndexInMountainArray(int[] arr) {
+        int result = -1;
+        int low = 0, high = arr.length - 1;
+        while (low <= high) {
+            int mid = (high - low) / 2 + low;
+            if (arr[mid] > arr[mid+1]) {
+                result = mid;
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return result;
     }
 
     /**
@@ -644,5 +665,4 @@ public class ArrayProblemSet {
         }
         return maxOne > maxZero;
     }
-
 }
