@@ -10,6 +10,7 @@ import java.util.List;
  *
  * 46. 全排列 {@link #permute}
  * 51. N 皇后 & 面试题 08.12. 八皇后 {@link #solveNQueens}
+ * 1863. 找出所有子集的异或总和再求和 {@link #subsetXORSum}
  */
 public class BackTrackProblems {
 
@@ -146,4 +147,35 @@ public class BackTrackProblems {
         return true;
     }
 //********************************************************************************************************
+
+    /**
+     * 1863. 找出所有子集的异或总和再求和
+     * @param nums 数据集
+     * @return 子集异或总和
+     */
+    public int subsetXORSum(int[] nums) {
+        if (nums.length == 1) return nums[0];
+        subsetXorSumDfs(nums, 0, 0);
+        return xorSum;
+    }
+    /**
+     * 异或总和，定义为全局变量，方便修改
+     */
+    int xorSum = 0;
+    /**
+     * @param nums 源数组
+     * @param i 数组索引，标记位置
+     * @param subsetXor 子集的异或值
+     */
+    private void subsetXorSumDfs(int[] nums, int i, int subsetXor) {
+        //终止条件，获得一个子集
+        if (i == nums.length) {
+            xorSum += subsetXor;
+            return;
+        }
+        //选择当前元素到子集中
+        subsetXorSumDfs(nums, i + 1, subsetXor ^ nums[i]);
+        //不选择当前元素到子集中
+        subsetXorSumDfs(nums, i + 1, subsetXor);
+    }
 }
