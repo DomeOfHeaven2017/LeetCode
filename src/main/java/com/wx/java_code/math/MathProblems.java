@@ -1,5 +1,6 @@
 package com.wx.java_code.math;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import java.util.Map;
  *  面试题 16.07. 最大数值 {@link #maximum}
  *
  * 13. 罗马数字转整数 {@link #romanToInt}
+ * 204. 计数质数 {@link #countPrimes}
  * 231. 2 的幂 {@link #isPowerOfTwo}
  * 342. 4的幂 {@link #isPowerOfFour}
  * 1310. 子数组异或查询 {@link #xorQueries}
@@ -78,6 +80,32 @@ public class MathProblems {
             }
         }
         return result;
+    }
+
+    /**
+     * 204. 计数质数
+     * @param n 数字n
+     * @return 小于n的素数个数
+     */
+    public int countPrimes(int n) {
+        //初始化n项的数组，表示1~n是否为素数,初始全部设为true
+        boolean[] primes = new boolean[n];
+        Arrays.fill(primes, true);
+        //从2开始遍历，由于对称性，只需遍历到i^2
+        for (int i = 2; i * i < n; i++) {
+            //如果当前的值为素数，则该素数的整数倍都不是素数
+            if (primes[i]) {
+                for (int j = i * i; j < n; j += i) {
+                    primes[j] = false;
+                }
+            }
+        }
+        int count = 0;
+        //计算素数个数
+        for (int i = 2; i < n; i++) {
+            if (primes[i]) count++;
+        }
+        return count;
     }
 
     /**
