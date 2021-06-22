@@ -33,6 +33,7 @@ import java.util.*;
  * 1470.重新排列数组 {@link #shuffle}
  * 1480. 一维数组的动态和 {@link #runningSum}
  * 1482. 制作 m 束花所需的最少天数 {@link #minDays}
+ * 1662. 检查两个字符串数组是否相等 {@link #arrayStringsAreEqual}
  * 1672. 最富有客户的资产总量 {@link #maximumWealth}
  * 1678. 设计 Goal 解析器 {@link #interpret}
  * 1704. 判断字符串的两半是否相似 {@link #halvesAreAlike}
@@ -515,6 +516,27 @@ public class ArrayProblemSet {
         }
         //当前天数下制作的花束数量是否大于等于所需的花束数量
         return sum >= m;
+    }
+
+    /**
+     * 1662. 检查两个字符串数组是否相等
+     * @param word1 字符串word1
+     * @param word2 字符串word2
+     * @return 两个字符串数组是否相同
+     */
+    public boolean arrayStringsAreEqual(String[] word1, String[] word2) {
+        if (word1.length != word2.length) {
+            return false;
+        }
+        StringBuilder sb1 = new StringBuilder(word1.length);
+        StringBuilder sb2 = new StringBuilder(word2.length);
+        for (String s : word1) {
+            sb1.append(s);
+        }
+        for (String s : word2) {
+            sb2.append(s);
+        }
+        return sb1.toString().equals(sb2.toString());
     }
 
     /**
