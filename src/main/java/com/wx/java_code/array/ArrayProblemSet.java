@@ -16,6 +16,7 @@ import java.util.*;
  * 14. 最长公共前缀 {@link #longestCommonPrefix}
  * 26.删除排序数组中的重复项 {@link #removeDuplicates}
  * 27. 移除元素 {@link #removeElement}
+ * 35. 搜索插入位置 {@link #searchInsert}
  * 189. 旋转数组 {@link #rotate}
  * 283. 移动零  {@link #moveZeroes}
  *349. 两个数组的交集 {@link #intersection}
@@ -143,6 +144,28 @@ public class ArrayProblemSet {
             fast ++;
         }
         return slow + 1;
+    }
+
+    /**
+     * 35. 搜索插入位置
+     * @param nums 排序数组
+     * @param target 目标值
+     * @return 目标值索引
+     */
+    public int searchInsert(int[] nums, int target) {
+        int start = 0, end = nums.length - 1;
+        int mid;
+        while (start <= end) {
+            mid = (end - start) / 2 + start;
+            if (nums[mid] < target) {
+                start = mid + 1;
+            } else if (nums[mid] > target) {
+                end = mid - 1;
+            } else if (nums[mid] == target) {
+                return mid;
+            }
+        }
+        return start;
     }
     
     /**
