@@ -41,6 +41,8 @@ import java.util.*;
  * 1773. 统计匹配检索规则的物品数量 {@link #countMatches}
  * 1832. 判断句子是否为全字母句 {@link #checkIfPangram}
  * 1869. 哪种连续子字符串更长 {@link #checkZeroOnes}
+ * 1920. 基于排列构建数组 {@link #buildArray}
+ * 1929. 数组串联 {@link #getConcatenation}
  */
 public class ArrayProblemSet {
 
@@ -709,5 +711,33 @@ public class ArrayProblemSet {
             }
         }
         return maxOne > maxZero;
+    }
+
+    /**
+     * 1920. 基于排列构建数组
+     * @param nums 源数组
+     * @return 根据ans[i] = nums[nums[i]]的规则排列的数组
+     */
+    public int[] buildArray(int[] nums) {
+        int length = nums.length;
+        int[] ans = new int[length];
+        for (int i = 0; i < length; i++) {
+            ans[i] = nums[nums[i]];
+        }
+        return ans;
+    }
+
+    /**
+     * 1929. 数组串联
+     * @param nums 源数组
+     * @return 原数组串联后的数组
+     */
+    public int[] getConcatenation(int[] nums) {
+        int length = nums.length;
+        int[] result = new int[length * 2];
+        for (int i = 0;i < result.length; i++){
+            result[i] = nums[i % length];
+        }
+        return result;
     }
 }
