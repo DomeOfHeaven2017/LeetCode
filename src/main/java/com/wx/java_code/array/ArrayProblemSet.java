@@ -17,7 +17,9 @@ import java.util.*;
  * 26.删除排序数组中的重复项 {@link #removeDuplicates}
  * 27. 移除元素 {@link #removeElement}
  * 35. 搜索插入位置 {@link #searchInsert}
+ * 53. 最大子序和 {@link #maxSubArray}
  * 189. 旋转数组 {@link #rotate}
+ * 217. 存在重复元素 {@link #containsDuplicate}
  * 283. 移动零  {@link #moveZeroes}
  *349. 两个数组的交集 {@link #intersection}
  *  350. 两个数组的交集II {@link #intersect}
@@ -169,6 +171,25 @@ public class ArrayProblemSet {
         }
         return start;
     }
+
+    /**
+     * 53. 最大子序和
+     * @param nums 原数组
+     * @return 最大的连续子序和
+     */
+    public int maxSubArray(int[] nums) {
+        int result = nums[0];
+        int sum = 0;
+        for (int i : nums) {
+            if (sum > 0) {
+                sum += i;
+            } else {
+                sum = i;
+            }
+            result = Math.max(sum, result);
+        }
+        return result;
+    }
     
     /**
      * 189.旋转数组
@@ -180,6 +201,20 @@ public class ArrayProblemSet {
         rotateHelper(nums, 0, k% nums.length - 1);
         rotateHelper(nums, k % nums.length, nums.length - 1);
     }
+
+    /**
+     *  217. 存在重复元素
+     * @param nums 源数组
+     * @return 数组中是否有重复元素
+     */
+    public boolean containsDuplicate(int[] nums) {
+        Set<Integer> set = new HashSet<>(nums.length);
+        for (int num : nums) {
+            set.add(num);
+        }
+        return set.size() != nums.length;
+    }
+
 
     /**
      * 对称交换数组元素
